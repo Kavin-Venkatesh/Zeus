@@ -1,0 +1,52 @@
+.homeMainContainer{
+    --background : #08080B;
+    --text :  #D4D4D7;
+    --secondary : #8540ca;
+    --accent : #18191A;
+    --accent2 : #4489DC;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    color: var(--text);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.homeHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 8vh;
+    color: var(--text);
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.homeSubHeading{
+    font-size: 1.62em;
+    margin: 1vh 0 1vh 1vw;
+    padding: 0 0 0 0;
+}
+
+
+.AvailableUsersSearch{
+    display: flex;
+    background-color: #3F4448;
+    border: none;
+    color: var(--text);
+    width: 20vw;
+    height: 4vh;
+    padding: 0 0 0 1vw;
+    margin: 0 1vw 0 1vw;
+    border-radius: 0.5rem;
+    font-size: 1em;
+    &:focus{
+        outline: none;
+    }
+    &::placeholder{
+        color: var(--text);
+    }
+}
