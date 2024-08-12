@@ -4,6 +4,9 @@
             <h1 class="homeSubHeading">Available Users</h1>
             <input type="text" class="AvailableUsersSearch" v-model="search" placeholder="Search " />
         </div>
+        <div>
+        
+        </div>
     </div>
 </template>
 
