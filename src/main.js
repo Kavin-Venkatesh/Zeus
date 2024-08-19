@@ -12,6 +12,7 @@ import BatchStudentDetails from './views/admin/studentDetails/batchStudentDetail
 import IndividualDetailsPage from './views/admin/studentDetails/detailsPage.vue';
 // import AvailableUsers from './views/admin/adduser/home/AvailableUsers.vue';
 import AddSingleUser from './views/admin/adduser/addsingleUser/addSingleUser.vue';
+import PendingdetailsPage from './views/admin/newRequests/pendingDetailsPage.vue';
 
 
 import 'primevue/resources/themes/saga-blue/theme.css'; // theme
@@ -47,6 +48,10 @@ const router = createRouter({
             path : '/admin/addSingleUser',
             component : AddSingleUser
         },
+        {
+            path : '/pendingdetailsPage',
+            component : PendingdetailsPage
+        }
     ]
 })
 

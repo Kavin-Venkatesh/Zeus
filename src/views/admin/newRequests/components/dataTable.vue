@@ -1,5 +1,8 @@
 <template>
     <div class="details_searchContainer">
+            <h2>
+                New Requests
+            </h2>
             <input type="text" class="details_search" v-model="search" placeholder="Search " />
     </div>
     <div class="card">
@@ -21,7 +24,7 @@
                 <td>{{ customer.Branch }}</td>
                 <td>{{ customer.CompanyName }}</td>
                 <td>{{ customer.SalaryPackage }}</td>
-                <td :class="{'Green': customer.Status === 'Approved', 'red': customer.Status !== 'Approved'}">{{ customer.Status }}</td>
+                <td class= "PendingStatus">{{ customer.Status }}</td>
             </tr>
         </table>   
         <div class="ButtonContainer"> 
@@ -38,9 +41,6 @@
 </template>
 
 <script>
-// import DataTable from 'primevue/datatable';
-// import Column from 'primevue/column';
-
 export default {
     name : "MyDataTable",
     // components: {
@@ -52,102 +52,31 @@ export default {
             search : '',
             customers: [
                 {
-                    id: 1,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
+                    id : 101,
+                    name : 'Monkey D. Luffy',
+                    rollNumber : '7376222AL155',
+                    Branch : 'CSE',
+                    CompanyName : 'Google',
+                    SalaryPackage : '10 LPA',
+                    Status : 'Pending',
                 },
                 {
-                    id: 2,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 3,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 4,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 5,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 6,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 7,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 8,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 9,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 10,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id : 11,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch : 'Cse',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id : 12,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch : 'Cse',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
+                    id : 102,
+                    name : 'Roronoa Zoro',
+                    rollNumber : '7376222AL156',
+                    Branch : 'ECE',
+                    CompanyName : 'Amazon',
+                    SalaryPackage : '12 LPA',
+                    Status : 'Pending',
+                },
+                {
+                    id : 103,
+                    name : 'Nami',
+                    rollNumber : '7376222AL157',
+                    Branch : 'CSE',
+                    CompanyName : 'Microsoft',
+                    SalaryPackage : '15 LPA',
+                    Status : 'Pending',
                 }
             ],
             currentPage : 1,
@@ -192,7 +121,7 @@ export default {
         //     this.$router.push(`/admin/detailsPage/${id}`);
         // }
         gotoDetailsPage(){
-            this.$router.push('/admin/detailsPage');
+            this.$router.push('/pendingdetailsPage');
         }
     }
 };
@@ -294,13 +223,18 @@ export default {
 .red {
     color: red;
 }
-
-.details_searchContainer{
-    width : 95%;
+.details_searchContainer {
+    width: 90vw;
     height: 4vh;
-    display : flex;
+    display: flex;
     align-items: center;
-    justify-content: flex-end;
+    margin: 1vw 0 0 5vw;
+    justify-content: space-between;
+}
+
+.PendingStatus{
+    color:  #8540ca;
+
 }
 </style>
 

@@ -1,10 +1,6 @@
 <template>
     <div class= "homeMainContainer">
         <DataTable />
-        <h1>
-            New Requests
-        </h1>
-        <DataTable />
     </div>
 
 </template>
