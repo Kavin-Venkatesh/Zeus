@@ -46,7 +46,7 @@ const router = createRouter({
         {
             path : '/admin/addSingleUser',
             component : AddSingleUser
-        }
+        },
     ]
 })
 

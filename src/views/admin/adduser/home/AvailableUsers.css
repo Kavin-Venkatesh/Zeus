@@ -50,3 +50,110 @@
         color: var(--text);
     }
 }
+.addButtonContainer{
+    width: 95vw;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1vw 0 0;
+    margin: 0 0 0 0;
+}
+.AddButton{
+    width : 4vw;
+    height: 7vh;
+    background-color: var(--accent2);
+    color: var(--text);
+    border: none;
+    border-radius: 5rem;
+    font-size: 1em;
+    margin: 0 1vw 0 0;
+    padding: 0 0 0 0;
+}
+
+.buttonConatiner{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 55vw;
+    height: 8vh;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+
+.CancelButton{
+    width : 6vw;
+    height: 4vh;
+    background-color: red;
+    color :#ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1em;
+    margin: 0 1vw 0 0;
+    padding: 0 0 0 0;
+}
+
+.SaveButton{
+    width : 6vw;
+    height: 4vh;
+    background-color: var(--accent2);
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1em;
+    margin: 0 1vw 0 0;
+    padding: 0 0 0 0;
+}
+
+.editInput {
+    width: 35rem;
+    height: 2.5rem;
+    color: var(--text);
+    padding: 0.5rem;
+    border: 1px solid #18191A;
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    transition: border-color 0.3s;
+}
+.editInput:focus {
+    border-color: #8540ca;
+    outline: none;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    width: 200px;
+    margin-right: 3rem;
+    font-size: large;
+  }
+  
+  .form-group input,
+  .form-group select {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .inputSelection {
+    flex: 1;
+    width: 30rem;
+    height: 2.5rem;
+    color: var(--text);
+    padding: 0.5rem;
+    border: 1px solid #18191A;
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    transition: border-color 0.3s;
+  }
+  
+  .inputSelection:focus {
+    border-color: #8540ca;
+    outline: none;
+  }

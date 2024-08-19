@@ -6,6 +6,7 @@
     <Dashboard v-show="activeButton === 'Dashboard'" />
     <StudentsDetails v-show="activeButton === 'Students Details'" />
     <AvailableUsers v-show="activeButton === 'Add User'"/>
+    <NewRequests v-show = "activeButton === 'New Requests'"/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Dashboard from './dashboard/dashboard.vue';
 import StudentsDetails from './studentDetails/studentsDetails.vue';
 import NavBar from '../../components/layout/layout.vue';
 import AvailableUsers from './adduser/home/AvailableUsers.vue';
+import NewRequests from './newRequests/newRequests.vue';
 import 'primeicons/primeicons.css';
 import './dashboard/dashboard.css';
 export default {
@@ -22,7 +24,8 @@ export default {
     Dashboard,
     StudentsDetails,
     NavBar,
-    AvailableUsers
+    AvailableUsers,
+    NewRequests
   },
   data() {
     return {
