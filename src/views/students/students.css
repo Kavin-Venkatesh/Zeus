@@ -1,0 +1,80 @@
+.student_mainContainer{
+    --background : #08080B;
+    --text :  #D4D4D7;
+    --secondary : #8540ca;
+    --accent : #18191A;
+    --accent2 : #4489DC;
+    /* --chart : #e956a25, 0, 0, 0.7); */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--background);
+    color: var(--text);
+    font-family: 'Nunito Sans', sans-serif;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #08080B; /* Use the background color of your page */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #A55EED; /* Use the color you provided */
+    border-radius: 2rem;
+}
+
+.data_mainContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 80vh;
+    background-color: var(--background);
+    color: var(--text);
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+.student_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 8vh;
+    color: var(--text);
+    background-color: var(--accent);
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+.student_subheading{
+    margin: 1vh 0 1vh 5vw;
+    padding: 0 0 0 0;
+    color: var(--secondary);
+}
+
+.saddButtonContainer{
+    width: 95vw;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 1vw 0 0;
+    margin: 0 0 0 0;
+}
+.sAddButton{
+    width : 4vw;
+    height: 8vh;
+    background-color: var(--accent2);
+    color: var(--text);
+    border: none;
+    border-radius: 5rem;
+    font-size: 1em;
+    margin: 0 1vw 0 0;
+    padding: 0 0 0 0;
+}

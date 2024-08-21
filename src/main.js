@@ -13,7 +13,8 @@ import IndividualDetailsPage from './views/admin/studentDetails/detailsPage.vue'
 // import AvailableUsers from './views/admin/adduser/home/AvailableUsers.vue';
 import AddSingleUser from './views/admin/adduser/addsingleUser/addSingleUser.vue';
 import PendingdetailsPage from './views/admin/newRequests/pendingDetailsPage.vue';
-
+import StudentHome from './views/students/index.vue';
+import AddOffer from './views/students/addoffer/addOffer.vue';
 
 import 'primevue/resources/themes/saga-blue/theme.css'; // theme
 import 'primevue/resources/primevue.min.css'; // core css
@@ -51,6 +52,12 @@ const router = createRouter({
         {
             path : '/pendingdetailsPage',
             component : PendingdetailsPage
+        },{
+            path : '/student/home',
+            component : StudentHome
+        },{
+            path : '/student/addoffer',
+            component : AddOffer
         }
     ]
 })

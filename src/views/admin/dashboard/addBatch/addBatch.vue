@@ -96,16 +96,16 @@
                 </div>
                 <input class="batchInput" v-model="BatchDetails.proofCount" placeholder="Number of Available students Proof" type="number"  required/>
             </div>
-        </div>
-        <div class = "addBatch_buttonContainer" >
-            <button class ="addBatch_button" @click.prevent = "handleSubmit">
-                <i class = "pi pi-plus" style ="font-size: 1rem;"></i>
-                    Add Batch
-            </button>
+            <div class = "addBatch_buttonContainer" >
             <button class ="cancelBatch_button" @click="handleCancelSubmit">
                 <i class = "pi pi-times" style = "font-size : 1rem;"></i>    
                 Cancel
             </button>
+            <button class ="addBatch_button" @click.prevent = "handleSubmit">
+                <i class = "pi pi-plus" style ="font-size: 1rem;"></i>
+                    Add Batch
+            </button>
+        </div>
         </div>
         <Toast />
     </div>

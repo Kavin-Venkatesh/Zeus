@@ -11,8 +11,9 @@
     width: 100vw;
     background-color: var(--background);
     color: var(--text);
-    font-family: 'Nunito Sans', sans-serif;
     overflow-y: auto;
+    align-items: center;
+    justify-content: center;
     overflow-x: hidden;
 }
 
@@ -165,7 +166,8 @@
     height: 8vh;
     color: var(--text);
     padding: 0 0 0 0;
-    margin: 0 2vw 0 3vw;
+    /* margin: 0 2vw 0 3vw; */
+    background-color: var(--accent);
 }
 
 .analytics_subheading{
@@ -255,8 +257,8 @@
 .mainInput_container{
     display: flex;
     align-items: center;
-    width: 100vw;
-    height: 100%;
+    width: 90vw;
+    height: 80vh;
     background-color: var(--accent);
     color: var(--text);
     overflow-y: auto;
@@ -266,12 +268,11 @@
 
 .inputContainer{
     display: flex;
-    width : 65%;
-    height: 5vh;
+    width : 100%;
+    height: 7vh;
     align-items: center;
-    justify-content: space-around;
     margin-top : 1rem;
-    border-bottom: 1px solid #243e5e;
+    /* border-bottom: 1px solid #243e5e; */
 }
 
 .addBatch_heading{
@@ -281,86 +282,91 @@
 }
 
 .InputDetails{
-    font-size: 1rem;
+    font-size: 1.4rem;
+    color: var(--text);
+    margin: 0rem 0rem 0rem 10rem;
+    font-weight: bold;
 }
 .required_symbol {
     color: red;
     font-size: 1.3rem;
-    margin: 0 0 0 2vw;
 }
 
 .inputQuestionContainer{
-    width : 30vw;
-    height : 100%;
+    width: 40%;
+    height: 2rem;
     display: flex;
+    margin-bottom: 2.5rem;
+    margin-top: 2rem;
     align-items: center;
 }
 
 .batchInput{
-    width : 30rem;
-    height : 2.5rem;
-    background-color: #2B2E30;
-    border: none;
-    display: flex;
-    align-items: center;
-    border-radius:0.5rem;
-    outline: none;
-    transition: 0.3s;
+    width: 35%;
+    padding:8px;
     font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-color: #08080B;
     color: var(--text);
-    padding: 0 0 0 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 0 0 4rem;
+    font-weight: bold;
 }
 
-.batchInput::placeholder{
-    font-size: 1rem;
-    font-family: 'Nunito Sans', sans-serif;
-}
 
 .addBatch_buttonContainer{
-    width : 50vw;
+    width : 60vw;
     height: 4vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin : 0 0 0 25vw;
-    margin-bottom: 2rem;
-    font-family: 'Nunito Sans', sans-serif;
+    margin : 4vh 0vh 4vh 26vw;
+    margin-bottom: 4rem;
 }
 
 .addBatch_button{
-    width: 9rem;
-    height : 4rem;
+    background-color: #8540ca;
+    color: white;
     border: none;
-    display: flex;
-    background-color: var(--secondary);
-    color: var(--text);
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 1rem;
-    margin: 2vw -36vw 0 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 4px;
+    padding: 2vh 2.5vh;
     cursor: pointer;
+    font-size: large;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.addBatch_button:hover {
+    background-color: #7411d6;
+    transform: translateY(-2px);
+}
+
+
 .cancelBatch_button{
-    width: 9rem;
-    height : 4rem;
+    background-color: #FF0000;
+    color: white;
     border: none;
-    display: flex;
-    background-color: red;
-    color: var(--text);
-    align-items: center;
-    justify-content: space-evenly;
-    border-radius: 1rem;
-    margin: 2vw -36vw 0 0;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 4px;
+    padding: 2vh 2.5vh;
     cursor: pointer;
-    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }   
+
+
+.cancelBatch_button:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+.cancelBatch_button:active {
+    background-color: #b30000;
+    transform: translateY(0);
+}
 
 /* Hide the default controls */
 input[type="number"]::-webkit-inner-spin-button,
