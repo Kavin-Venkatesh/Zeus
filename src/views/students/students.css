@@ -51,10 +51,31 @@
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
+
+.headerButton{
+    background-color: #242526 ;
+    color: var(--text);
+    border: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 0 1vw 0 1vw;
+    margin: 0 1vw 0 7vw;
+    width : 9vw;
+    height: 2.5vw;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+        background-color: #242526 ;
+    }
+}
 .student_subheading{
-    margin: 1vh 0 1vh 5vw;
+    margin: 1vh 0 1vh 0vw;
     padding: 0 0 0 0;
     color: var(--secondary);
+    font-size: 1.5rem;
 }
 
 .saddButtonContainer{

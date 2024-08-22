@@ -1,11 +1,13 @@
 <template>
     <div class="student_mainContainer">
         <div class="student_header">
-            <h1 class="student_subheading">
+            <div class="headerButton">
+                <h1 class="student_subheading">
                 Add offer
                 <i class="pi pi-file-plus" 
-                 style="font-size: 1.5rem"></i>
+                 style="font-size: 1.2rem"></i>
             </h1>
+            </div>
         </div>
             <div class="data_mainContainer"> 
                     <DataTable />

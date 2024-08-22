@@ -25,6 +25,7 @@
             <label for="role">Role</label>
             <select class="inputSelection" for="role" id="role" required>
               <option value="admin">Admin</option>
+              <option value="user">Organisers</option>
               <option value="user">User</option>
             </select>
           </div>

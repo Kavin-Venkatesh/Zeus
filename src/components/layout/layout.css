@@ -9,7 +9,7 @@
     color: var(--text);
     margin: 0 0 0 0;
 }  
-.nav_buttonContainer{
+.navButtonContainer{
     display: flex;
     justify-content: space-between;
     align-items: center;

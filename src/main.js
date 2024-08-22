@@ -15,6 +15,10 @@ import AddSingleUser from './views/admin/adduser/addsingleUser/addSingleUser.vue
 import PendingdetailsPage from './views/admin/newRequests/pendingDetailsPage.vue';
 import StudentHome from './views/students/index.vue';
 import AddOffer from './views/students/addoffer/addOffer.vue';
+import OrganisersPage from './views/organisers/index.vue';
+import OrganisersAnalytics from './views/organisers/dashboard/Analytics';
+import OrganiserBatchDetails from './views/organisers/batchDetails/batchDetails.vue';
+import OrganisersIndividualDetailsPage from './views/organisers/detailspage/detailsPage.vue';
 
 import 'primevue/resources/themes/saga-blue/theme.css'; // theme
 import 'primevue/resources/primevue.min.css'; // core css
@@ -58,6 +62,18 @@ const router = createRouter({
         },{
             path : '/student/addoffer',
             component : AddOffer
+        },{
+            path : '/organisers/home',
+            component : OrganisersPage
+        },{
+            path : '/organisers/analytics',
+            component : OrganisersAnalytics
+        },{
+            path : '/organisers/batchStudentDetails',
+            component : OrganiserBatchDetails
+        },{
+            path : '/organisers/detailsPage',
+            component : OrganisersIndividualDetailsPage
         }
     ]
 })

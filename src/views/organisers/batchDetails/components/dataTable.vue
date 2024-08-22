@@ -52,32 +52,71 @@ export default {
             search : '',
             customers: [
                 {
-                    id : 101,
-                    name : "Monkey D Luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Google",
-                    SalaryPackage : "10 LPA",
-                    Status : "Approved"
+                    id: 1,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
                 },
                 {
-                    id : 102,
-                    name : "Monkey D luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Microsoft",
-                    SalaryPackage : "9 LPA",
-                    Status : "Rejected"
-                },
-                {
-                    id : 103,
-                    name : "Monkey D Luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Amazon",
-                    SalaryPackage : "8 LPA",
-                    Status : "Approved"
-                },
+                    id: 2,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 3,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 4,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 5,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 6,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 7,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                },{
+                    id: 8,
+                    name: 'John Doe',
+                    rollNumber: '123456',
+                    Branch: 'CSE',
+                    CompanyName: 'Google',
+                    SalaryPackage: '10LPA',
+                    Status: 'Approved'
+                }
             ],
             currentPage : 1,
             itemsPerPage : 8
@@ -121,7 +160,7 @@ export default {
         //     this.$router.push(`/admin/detailsPage/${id}`);
         // }
         gotoDetailsPage(){
-            this.$router.push('/admin/detailsPage');
+            this.$router.push('/organisers/detailsPage');
         }
     }
 };
@@ -142,12 +181,11 @@ export default {
 
 }
 .DataTable{
-    width : 80%;
-    height : 70%;
+    width : 90%;
+    height : 90%;
     border: none;
     border-collapse: collapse;
     border-radius: .5rem;
-    margin: 0 0 0 0;
 
 }
 .table_header{
@@ -157,16 +195,15 @@ export default {
     width : 100%;
     border : none;
     padding: 8px;
-    height: 6vh;
+    height: 7vh;
     font-size: large;
 }
 .table-ContentConatiner{
     background-color: #08080B;
     border-bottom : 1px solid   rgb(67, 137, 208);
     padding: 8px;
-    height : 6vh;
+    height : 7vh;
     font-size: larger;
-    font-weight: bold;
     text-align: center;
     cursor : pointer;
 
@@ -175,7 +212,7 @@ export default {
     }
 }
 .ButtonContainer{
-    width : 80%;
+    width : 85%;
     height: 10%;
     display: flex;
     justify-content: space-between;
@@ -227,12 +264,11 @@ export default {
 }
 
 .details_searchContainer{
-    width : 90%;
+    width : 95%;
     height: 4vh;
     display : flex;
     align-items: center;
     justify-content: flex-end;
-    margin: 4vw 0 0 0;
 }
 </style>
 

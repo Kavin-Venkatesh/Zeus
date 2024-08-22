@@ -1,6 +1,6 @@
 <template>
     <div class="admin_navbar">
-      <div class="nav_buttonContainer">
+      <div class="navButtonContainer">
         <button href="" class="nav_button" :class="{ active: activeButton === 'Dashboard' }"
         @click.prevent="$emit('set-active-button', 'Dashboard')">
           <i class="pi pi-home" style="font-size: 1.1rem"></i>

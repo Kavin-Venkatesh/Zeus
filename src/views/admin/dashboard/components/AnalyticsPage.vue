@@ -1,8 +1,8 @@
 <template>
     <div class="admin_mainContainer">
-        <div v-if ="batchDetails" class="analytics_header">
-            <i class="pi pi-arrow-left" style="font-size: 1.1rem; cursor: pointer;" @click="handleReturnNavigation"></i>
-            <h1 class="analytics_subheading">Analytics of Batch {{ batchDetails.year }}</h1>
+        <div v-if ="batchDetails" class="analyticsPageHeader">
+            <i class="pi pi-arrow-left" style="font-size: 1.1rem; cursor: pointer;    margin: 1vw 0vw 0.5vw 2vw;" @click="handleReturnNavigation"></i>
+            <h1 class="analyticsSubheading">Analytics of Batch {{ batchDetails.year }}</h1>
         </div>
         <div class = "chart_container">
             <div class="pieChart_card">
