@@ -162,7 +162,7 @@ export default {
         async handleFormSubmit() {
             console.log(this.BatchDetails);
             try{
-                const response =  await axios.post('http://localhost:5000/batch/addBatch',this.BatchDetails)
+                const response =  await axios.post('http://localhost:5000/analytics/addBatch',this.BatchDetails)
                 // year : this.BatchDetails.year,
                 // totalStudents : this.BatchDetails.totalStudents,
                 // studentsPlaced : this.BatchDetails.studentsPlaced,

@@ -1,11 +1,10 @@
 <template>
     <div class="details_searchContainer">
-            <input type="text" class="details_search" v-model="search" placeholder="Search " />
+        <input type="text" class="details_search" v-model="search" placeholder="Search " />
     </div>
     <div class="card">
-        <table class = "DataTable">
-            <thead class ="table_header">
-                <th>S.No</th>
+        <table class="DataTable">
+            <thead class="table_header">
                 <th>Name</th>
                 <th>Roll Number</th>
                 <th>Branch</th>
@@ -13,186 +12,83 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
-
-            <tr  class= " table-ContentConatiner" v-for="customer in displayedCustomers" :key="customer.id" @click = gotoDetailsPage(customer.id)>
-                <td>{{ customer.id }}.</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.Branch }}</td>
-                <td>{{ customer.CompanyName }}</td>
-                <td>{{ customer.SalaryPackage }}</td>
-                <td :class="{'Green': customer.Status === 'Approved', 'red': customer.Status !== 'Approved'}">{{ customer.Status }}</td>
-            </tr>
-        </table>   
-        <div class="ButtonContainer"> 
-        <button class= " PreviousButton" @click = "previousPage" :disabled="currentPage === 1 ">
-            <i class=" pi pi-arrow-left" style = "color : #D4D4D7," ></i>
-            Previous 
-        </button>
-        <button class = "NextButton" @click = "nextPage" :disabled = "currentPage === maxPage">
-            Next
-            <i class="pi pi-arrow-right" style="color: #D4D4D7," ></i>
-        </button>
+            <tbody>
+                <tr v-if="displayedStudents.length === 0">
+                    <td colspan="10" class="no-data">No data </td>
+                </tr>
+                <tr class="table-ContentConatiner" v-for="student in displayedStudents" :key="student.id" @click="gotoDetailsPage(student.id)">
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.rollNo }}</td>
+                    <td>{{ student.branch }}</td>
+                    <td>{{ student.companyName }}</td>
+                    <td>{{ student.salaryPackage }}</td>
+                    <td :class="{'Green': student.status === 'Approved', 'red': student.status !== 'Approved'}">{{ student.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ButtonContainer">
+            <button class="PreviousButton" @click="previousPage" :disabled="currentPage === 1">
+                <i class="pi pi-arrow-left" style="color: #D4D4D7;"></i>
+                Previous
+            </button>
+            <button class="NextButton" @click="nextPage" :disabled="currentPage === maxPage">
+                Next
+                <i class="pi pi-arrow-right" style="color: #D4D4D7;"></i>
+            </button>
         </div>
     </div>
 </template>
 
 <script>
-// import DataTable from 'primevue/datatable';
-// import Column from 'primevue/column';
-
 export default {
-    name : "MyDataTable",
-    // components: {
-    //     DataTable,
-    //     Column
-    // },
-    data() {
-        return {
-            search : '',
-            customers: [
-                {
-                    id: 1,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },
-                {
-                    id: 2,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 3,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 4,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 5,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 6,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 7,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 8,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id: 9,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Pending'
-                },{
-                    id: 10,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id : 11,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch : 'Cse',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                },{
-                    id : 12,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch : 'Cse',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Rejected'
-                }
-            ],
-            currentPage : 1,
-            itemsPerPage : 8
-        };
-    },
-    computed :{
-       displayedCustomers(){
-    let customers = this.customers;
-
-    if (this.search) {
-        const searchLower = this.search.toLowerCase();
-
-        customers = customers.filter(customer =>
-            Object.values(customer).some(value =>
-                String(value).toLowerCase().includes(searchLower)
-            )
-        );
-    }
-
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-
-    return customers.slice(start, end);
-},
-        maxPage (){
-            return Math.ceil(this.customers.length / this.itemsPerPage);      
+    name: "DataTable",
+    props: {
+        students: {
+            type: Array,
+            required: true
         }
     },
-    methods :{
-        nextPage(){
-            if(this.currentPage < this.maxPage){
+    data() {
+        return {
+            search: '',
+            currentPage: 1,
+            itemsPerPage: 8
+        };
+    },
+    computed: {
+        displayedStudents() {
+            let students = this.students;
+
+            if (this.search) {
+                const searchLower = this.search.toLowerCase();
+                students = students.filter(student =>
+                    Object.values(student).some(value =>
+                        String(value).toLowerCase().includes(searchLower)
+                    )
+                );
+            }
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+
+            return students.slice(start, end);
+        },
+        maxPage() {
+            return Math.ceil(this.students.length / this.itemsPerPage);
+        }
+    },
+    methods: {
+        nextPage() {
+            if (this.currentPage < this.maxPage) {
                 this.currentPage++;
             }
         },
-        previousPage(){
-            if(this.currentPage > 1){
+        previousPage() {
+            if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
-        // gotoDetailsPage(id){
-        //     this.$router.push(`/admin/detailsPage/${id}`);
-        // }
-        gotoDetailsPage(){
-            this.$router.push('/admin/detailsPage');
+        gotoDetailsPage(id) {
+            this.$router.push(`/detailsPage/${id}`);
         }
     }
 };
@@ -205,46 +101,43 @@ export default {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     background-color: transparent;
-    overflow : auto;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
-.DataTable{
-    width : 90%;
-    height : 90%;
+.DataTable {
+    width: 90%;
+    height: 90%;
     border: none;
     border-collapse: collapse;
     border-radius: .5rem;
-
 }
-.table_header{
+.table_header {
     background-color: #18191A;
     color: white;
     text-align: center;
-    width : 100%;
-    border : none;
+    width: 100%;
+    border: none;
     padding: 8px;
     height: 7vh;
     font-size: large;
 }
-.table-ContentConatiner{
+.table-ContentConatiner {
     background-color: #08080B;
-    border-bottom : 1px solid   rgb(67, 137, 208);
+    border-bottom: 1px solid rgb(67, 137, 208);
     padding: 8px;
-    height : 7vh;
+    height: 7vh;
     font-size: larger;
     text-align: center;
-    cursor : pointer;
-
-    &:hover{
-        background-color: #18191A;
-    }
+    cursor: pointer;
 }
-.ButtonContainer{
-    width : 85%;
+.table-ContentConatiner:hover {
+    background-color: #18191A;
+}
+.ButtonContainer {
+    width: 85%;
     height: 10%;
     display: flex;
     justify-content: space-between;
@@ -252,8 +145,8 @@ export default {
     margin-top: 3rem;
     background-color: transparent;
 }
-.NextButton{
-    width : 8rem;
+.NextButton, .PreviousButton {
+    width: 8rem;
     height: 2.8rem;
     background-color: #18191A;
     border: none;
@@ -264,29 +157,10 @@ export default {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
-    &:hover{
-        background-color: #D4D4D7;
-        color: #8540ca;
-    }
 }
-.PreviousButton{
-    width : 8.2rem;
-    height: 2.8rem;
-    background-color: #18191A;
-    border: none;
-    color: #D4D4D7;
-    font-size: larger;
-    border-radius: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-
-    &:hover{
-        background-color: #D4D4D7;
-        color: #8540ca;
-    }
+.NextButton:hover, .PreviousButton:hover {
+    background-color: #D4D4D7;
+    color: #8540ca;
 }
 .Green {
     color: #1DB954;
@@ -294,13 +168,18 @@ export default {
 .red {
     color: red;
 }
-
-.details_searchContainer{
-    width : 95%;
+.details_searchContainer {
+    width: 95%;
     height: 4vh;
-    display : flex;
+    display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-</style>
 
+.no-data {
+    text-align: center;
+    padding: 8px;
+    font-size: larger;
+    color: #D4D4D7;
+}
+</style>

@@ -12,14 +12,36 @@
                     <img :src="batch.image" alt="Group" class="pattern_image" />
                 </div>
                 <div class="detailsNameCard">
-                    <h1 class="details_BatchName">Batch : {{ batch.year }}</h1>
+                    <h1 class="details_BatchName">Batch : {{ batch.batchName }}</h1>
                 </div>
             </div>
         </div>
+        <footer>
+            <div class="footer_container">
+                <button class="add_button" @click="showModal = true"> +</button>
+            </div>
+        </footer>
+        <UserModal :isVisible="showModal" @close="showModal = false">
+            <template v-slot:header>
+                <h1 class="modal_heading">Add Student</h1>  
+            </template>
+            <template v-slot:body>
+                <div>
+                    <h1> Batch Name </h1>
+                    <input v-model="batchName" type="text" class="details_input" placeholder="XXXX - XXXX" required />
+                </div>
+            </template> 
+            <template v-slot:footer>
+                <button @click="showModal = false" class="CancelButton">  Cancel </button>
+                <button @click="addBatch" class="SaveButton"> Save </button>
+            </template>
+        </UserModal>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import UserModal from '../../../components/Modal.vue';
 import Group1 from '../../../assets/group1.jpg';
 import Group2 from '../../../assets/group2.jpg';
 import Group3 from '../../../assets/group3.jpg';
@@ -31,48 +53,17 @@ import Group8 from '../../../assets/group8.jpg';
 
 export default {
     name: 'StudentsDetails',
-    data(){
+    components: {
+        UserModal
+    },
+    data() {
         return {
             search: '',
+            showModal: false,
+            batchName: '',  
             images: [Group1, Group2, Group3, Group4, Group5, Group6, Group7, Group8],
-            Batches: [
-                {
-                    _id: '1',
-                    year: '2019-2024'
-                },
-                {
-                    _id: '2',
-                    year: '2020-2025'
-                },
-                {
-                    _id: '3',
-                    year: '2021-2026'
-                },
-                {
-                    _id: '4',
-                    year: '2022-2027'
-                },{
-                    _id: '5',
-                    year: '2023-2028'
-                },{
-                    _id: '6',
-                    year: '2024-2029'
-                },{
-                    _id: '7',
-                    year: '2025-2030'
-                },{
-                    _id: '8',
-                    year: '2026-2031'
-                },{
-                    _id: '9',
-                    year: '2027-2032'
-                },{
-                    _id: '10',
-                    year: '2028-2033'
-                }
-
-            ], 
-        }
+            Batches: []
+        };
     },
     computed: {
         batchesWithImages() {
@@ -84,20 +75,41 @@ export default {
                 ...batch,
                 image: this.images[Math.floor(Math.random() * this.images.length)]
             })).filter(batch => {
-                return batch.year && batch.year.includes(this.search);
+                return batch.batchName && batch.batchName.includes(this.search);
             });
         }
     },
     methods: {
-        // handleNaviagte(batchId) {
-        //     this.$router.push(`/admin/batchStudentDetails/${batchId}`);
-        // }
+        async fetchBatches() {
+            try {
+                const response = await axios.get('http://localhost:5000/batches/getBatch'); // Replace with your actual endpoint
+                this.Batches = response.data;
+            } catch (error) {
+                console.error('Error fetching batches:', error);
+            }
+        },
+        async addBatch() {
+            try {
+                console.log('Adding batch:', this.batchName);
+                await axios.post('http://localhost:5000/batches/createBatch', {
+                    batchName: this.batchName
+                });
+                this.fetchBatches();
+                this.showModal = false; 
+                this.batchName = ''; 
+            } catch (error) {
+                console.error('Error adding batch:', error);
+            }
+        },
         handleNaviagte(batchId) {
-            console.log(batchId)
-            this.$router.push('/admin/batchStudentDetails');
+            console.log(batchId);
+            this.$router.push(`/admin/batchStudentDetails/${batchId}`);
         }
+    },
+    mounted() {
+        this.fetchBatches();
     }
-}
+};
 </script>
 
 <style scoped>

@@ -5,12 +5,13 @@
             <h1 class="offerHeading">Offer Details</h1>
         </div>
         <div class="offerHeadingContainer">
-            <h2 class="offerHeadingDetails">Monkey D Luffy - 7376222AL155</h2>
+            <h2 class="offerHeadingDetails">{{ offerDetails.name }} - {{  offerDetails.rollNo }}</h2>
             <div class="buttonsContainer">
                 <button class="cancelButton" @click="showModal = true">
                         <i class="pi pi-times" style="margin: 0rem 0.6rem 0.2rem 0rem;font-size: 1.3rem; cursor: pointer;"></i>Reject
                 </button>
-                <button class="approveButton"><i class="pi pi-check" style="margin: 0rem 0.6rem 0.2rem 0rem;font-size: 1.3rem; cursor: pointer;"></i>Approve</button>
+                <button class="approveButton" @click="approveOffer">
+                    <i class="pi pi-check" style="margin: 0rem 0.6rem 0.2rem 0rem;font-size: 1.3rem; cursor: pointer;"></i>Approve</button>
             </div>
         </div>
         <Modal :isVisible="showModal" @close="showModal = false">
@@ -33,7 +34,7 @@
                     <h2 class="offerDetailsHeading">Name  <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">Monkey D Luffy</h2>
+                    <h2 class="offerDetailsHighlight">{{ offerDetails.name }}</h2>
                 </div>
             </div>
             <div class="offerDetails">
@@ -41,7 +42,7 @@
                     <h2 class="offerDetailsHeading">Roll Number <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">7376222AL155</h2>
+                    <h2 class="offerDetailsHighlight">{{ offerDetails.rollNo }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -49,7 +50,7 @@
                     <h2 class="offerDetailsHeading">Gender<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Male </h2>
+                    <h2 class="offerDetailsContent"> {{ offerDetails.Gender }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -57,7 +58,7 @@
                     <h2 class="offerDetailsHeading">Mobile Number<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">9876543210</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.mobile }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -65,7 +66,7 @@
                     <h2 class="offerDetailsHeading">Degree <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Artificial Intelligence And Machine Learning</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.degree }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -73,7 +74,7 @@
                     <h2 class="offerDetailsHeading">Branch <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">B.Tech</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.branch }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -81,15 +82,7 @@
                     <h2 class="offerDetailsHeading">Batch <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">2022-2026 </h2>
-                </div>
-            </div>
-            <div class=" offerDetails">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Native <span style="color: red;">*</span></h2>
-                </div>
-                <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">North Blue</h2>
+                    <h2 class="offerDetailsContent"> {{ offerDetails.batchName }} </h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -97,7 +90,7 @@
                     <h2 class="offerDetailsHeading">Company name <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">Straw Hats Private Limited</h2>
+                    <h2 class="offerDetailsHighlight">{{  offerDetails.companyName }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -105,7 +98,7 @@
                     <h2 class="offerDetailsHeading">Company Category <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">IT product</h2>
+                    <h2 class="offerDetailsHighlight">{{ offerDetails.companyCategory }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -113,7 +106,7 @@
                     <h2 class="offerDetailsHeading">Placement Organized By <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Own</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.organizedBy }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -121,7 +114,7 @@
                     <h2 class="offerDetailsHeading">Company Location <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Coimbatore , Tamil Nadu</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.companyLocation }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -129,7 +122,7 @@
                     <h2 class="offerDetailsHeading">Internship Joining Date  <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">21.07.2025</h2>
+                    <h2 class="offerDetailsHighlight">{{ offerDetails.internshipDate }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -137,7 +130,7 @@
                     <h2 class="offerDetailsHeading">Stipend <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">15000 /- </h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.stipend }} /- </h2>
                 </div>
             </div>
             <div class=" offerDetails">
@@ -145,91 +138,86 @@
                     <h2 class="offerDetailsHeading">Company CTC <br /> (Salary) <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">21.07.2025</h2>
+                    <h2 class="offerDetailsContent">{{ offerDetails.companyCtc }}</h2>
                 </div>
             </div>
-            <div class=" offerDetialsProofContainer">
+
+            <div class=" offerDetails">
+                <div class="offerLeftContainer">
+                    <h2 class="offerDetailsHeading">Placed Date <span style="color: red;">*</span> </h2>
+                </div>
+                <div class="offerRightContainer">
+                    <h2 class="offerDetailsContent">{{ offerDetails.placedDate }}</h2>
+                </div>
+            </div>
+
+
+            <div class="offerDetialsProofContainer">
                 <div class="offerLeftProofContainer">
                     <h2 class="offerDetailsHeading">Available Proofs <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightProofContainer">
-                    <div class="checkBoxInputContainer">
-                        <input class = "ProofCheckBox" type="checkbox" id="mailConfirmation" v-model="checkboxes.mailConfirmation">
-                        <label class = "offerDetailsContent" for="mailConfirmation">Mail Confirmation </label>
-                    </div>
-
-                    <div class="checkBoxInputContainer">
-                        <input class = "ProofCheckBox" type="checkbox" id="internshipLetter" v-model="checkboxes.internshipLetter">
-                        <label class = "offerDetailsContent"  for="internshipLetter">Internship Letter  </label>
-                    </div>
-
-                    <div class= "checkBoxInputContainer"> 
-                        <input class = "ProofCheckBox" type="checkbox" id="letterOfIntent" v-model="checkboxes.letterOfIntent">
-                        <label class = "offerDetailsContent"  for="letterOfIntent">Letter of Intent  </label>
-                    </div>
-
-                    <div class= "checkBoxInputContainer"> 
-                        <input class = "ProofCheckBox" type="checkbox" id="OfferLetter" v-model="checkboxes.OfferLetter">
-                        <label class = "offerDetailsContent"  for="OfferLetter">Offer Letter </label>
+                    <div class="checkBoxInputContainer" v-for="(checked, proofType) in checkboxes" :key="proofType">
+                        <input class="ProofCheckBox" type="checkbox" :id="proofType" v-model="checkboxes[proofType]" disabled>
+                        <label class="offerDetailsContent" :for="proofType">{{ proofType.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) }}</label>
                     </div>
                 </div>
             </div>
-            <div class = "offerFileUploadContainer">
+
+
+            <div class="offerFileUploadContainer" v-if="MailImgSrc">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Mail Confirmation (Screen Shot) <br /> size (less than 1MB) <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
                     <div>
-                     <button class="custom-file-input">
-                        <a :href="MailImgSrc" target="_blank" v-if="MailImgSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
+                        <button class="custom-file-input">
+                            <a :href="MailImgSrc" target="_blank">
+                                <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;" />
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class = "offerFileUploadContainer">
+            <div class="offerFileUploadContainer" v-if="IlPdfSrc">
                 <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Internship Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
+                    <h2 class="offerDetailsHeading">Internship Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only) </h2>
                 </div>
                 <div class="offerRightContainer">
                     <div>
-                     <button class="custom-file-input">
-                        <a :href="IlPdfSrc" target="_blank" v-if="IlPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
+                        <button class="custom-file-input">
+                            <a :href="IlPdfSrc" target="_blank">
+                                <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;" />
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class = "offerFileUploadContainer">
+            <div class="offerFileUploadContainer" v-if="LOTPdfSrc">
                 <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Letter of Intent (LOT)  <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
+                    <h2 class="offerDetailsHeading">Letter of Intent (LOT) <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only) </h2>
                 </div>
                 <div class="offerRightContainer">
                     <div>
-                     <button class="custom-file-input">
-                        <a :href="LOTPdfSrc" target="_blank" v-if="LOTPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
+                        <button class="custom-file-input">
+                            <a :href="LOTPdfSrc" target="_blank">
+                                <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;" />
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <div class = "offerFileUploadContainer">
+            <div class="offerFileUploadContainer" v-if="OLPdfSrc">
                 <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Offer Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
+                    <h2 class="offerDetailsHeading">Offer Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only) </h2>
                 </div>
                 <div class="offerRightContainer">
                     <div>
-                     <button class="custom-file-input">
-                        <a :href="OLPdfSrc" target="_blank" v-if="OLPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
+                        <button class="custom-file-input">
+                            <a :href="OLPdfSrc" target="_blank">
+                                <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;" />
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -239,8 +227,8 @@
         </div>
     </div>
 </template>
-
 <script>
+import axios from 'axios';
 import 'primeicons/primeicons.css';
 import CloudUpload from '../../../assets/cloudUpload.png';
 import Modal from '@/components/Modal.vue';
@@ -255,34 +243,104 @@ export default {
             checkboxes: {
                 mailConfirmation: false,
                 internshipLetter: false,
-                letterOfIntent: false
+                letterOfIntent: false,
+                OfferLetter: false
             },
             CloudUpload: CloudUpload,
-            status: 'Rejected',
-            rejectedReason: 'Mail Confirmation not uploaded',
-            MailImgSrc : CloudUpload,
-            IlPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            LOTPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            OLPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+            status: '',
+            rejectedReason: '',
+            MailImgSrc: '',
+            IlPdfSrc: '',
+            LOTPdfSrc: '',
+            OLPdfSrc: '',
             showModal: false,
-            rejectionReason: ''
-
+            offerDetails: {
+                name: '',
+                rollNo: '',
+                Gender: '',
+                dob: '',
+                mobile: '',
+                degree: '',
+                branch: '',
+                batch: '',
+                companyName: '',
+                companyCategory: '',
+                organizedBy: '',
+                companyLocation: '',
+                internshipDate: '',
+                stipend: '',
+                companyCtc: '',
+                placedDate: '',
+                availableProofs: []
+            }
         };
     },
-    methods : {
-        triggerFileInput() {
-            this.$refs.fileInput.click();
+    methods: {
+        async fetchOfferDetails() {
+            const offerId = this.$route.params.id;
+            try {
+                const response = await axios.get(`http://localhost:5000/offer/pendingDetails/${offerId}`);
+                this.mapOfferDetails(response.data);
+            } catch (error) {
+                console.error('Error fetching offer details:', error);
+            }
+        },
+        mapOfferDetails(data) {
+            this.offerDetails = {
+                ...data,
+                dob: data.dob ? data.dob.split('T')[0] : '',
+                internshipDate: data.internshipDate ? data.internshipDate.split('T')[0] : '',
+                placedDate: data.placedDate ? data.placedDate.split('T')[0] : ''
+            };
+
+            // Map available proofs
+            data.availableProofs.forEach(proof => {
+                if (proof.type === 'mail confirmation') {
+                    this.MailImgSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.checkboxes.mailConfirmation = true;
+                } else if (proof.type === 'Internship letter') {
+                    this.IlPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.checkboxes.internshipLetter = true;
+                } else if (proof.type === 'letter of intent') {
+                    this.LOTPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.checkboxes.letterOfIntent = true;
+                } else if (proof.type === 'offer letter') {
+                    this.OLPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.checkboxes.OfferLetter = true;
+                }
+            });
         },
         handleBackNavigation() {
             this.$router.push('/admin/home');
         },
+        async updateStatus(status, rejectedReason = '') {
+            const offerId = this.$route.params.id;
+            try {
+                const response = await axios.put(`http://localhost:5000/offer/updateStatus/${offerId}`, {
+                    status,
+                    rejectedReason
+                });
+                console.log('Status updated successfully:', response.data);
+                this.handleBackNavigation(); // Navigate back after updating status
+            } catch (error) {
+                console.error('Error updating status:', error);
+            }
+        },
+        approveOffer() {
+            this.updateStatus('Approved');
+        },
+        rejectOffer() {
+            this.updateStatus('Rejected', this.rejectionReason);
+        },
         submitRejection() {
-            console.log( "rejection reason",this.rejectionReason);
+            this.rejectOffer();
             this.showModal = false;
         }
-
+    },
+    mounted() {
+        this.fetchOfferDetails();
     }
-}
+};
 </script>
 
 <style scoped>

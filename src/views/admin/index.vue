@@ -35,6 +35,12 @@ export default {
   methods: {
     setActiveButton(buttonName) {
       this.activeButton = buttonName;
+    },
+    handleLogout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userId');
+      this.$router.push('/');
     }
   }
 }

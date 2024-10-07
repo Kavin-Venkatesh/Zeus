@@ -21,8 +21,16 @@
           <i class="pi pi-bell" style="font-size: 1rem"></i>
           New Requests
         </button>
-
       </div>
+      <div class="logout_container">
+
+      <button @click="handleLogout"
+      class="nav_button" style="margin-top: 10px;">
+        <i class="pi pi-sign-out" style="font-size: 1.1rem"></i>
+        Logout
+      </button>
+      </div>
+
     </div>
 
 </template>
@@ -34,6 +42,14 @@ name: 'NavBar',
     activeButton: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    handleLogout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userId');
+      this.$router.push('/');
     }
   }
 }

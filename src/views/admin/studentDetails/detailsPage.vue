@@ -1,23 +1,22 @@
 <template>
     <div class="offerDetailsMainContainer">
         <div class="offerHeader">
-            <i class="pi pi-arrow-left" style="margin: 1vh 0 1vh 5vh;font-size: 1.5rem; cursor: pointer;" @click="handleBackNavigation"></i>
             <h1 class="offerHeading">Offer Details</h1>
         </div>
         <div class="offerHeadingContainer">
-            <h2 class="offerHeadingDetails">Monkey D Luffy - 7376222AL155</h2>
-            <button class="DownloadDetails_button">
+            <h2 class="offerHeadingDetails">{{ offer.name }} - {{ offer.rollNo }}</h2>
+            <button class="DownloadDetails_button" @click = "downloadPDF">
                 <i class="pi pi-download" style="margin-right: 0.5vh;"></i>
                 Download
             </button>
         </div>
-        <div class="offerContentContainer">
+        <div class="offercontentContainer">
             <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Name  <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">Monkey D Luffy</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.name }}</h2>
                 </div>
             </div>
             <div class="offerDetails">
@@ -25,266 +24,299 @@
                     <h2 class="offerDetailsHeading">Roll Number <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">7376222AL155</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.rollNo }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Gender<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Male </h2>
+                    <h2 class="offerDetailsContent">{{ offer.Gender }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
+                <div class="offerLeftContainer">
+                    <h2 class="offerDetailsHeading">Date of Birth<span style="color: red;">*</span></h2>
+                </div>
+                <div class="offerRightContainer">
+                    <h2 class="offerDetailsContent">{{ offer.dob }}</h2>
+                </div>
+            </div>
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Mobile Number<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">9876543210</h2>
+                    <h2 class="offerDetailsContent">{{ offer.mobile }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Degree <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Artificial Intelligence And Machine Learning</h2>
+                    <h2 class="offerDetailsContent">{{ offer.degree }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Branch <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">B.Tech</h2>
+                    <h2 class="offerDetailsContent">{{ offer.branch }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Batch <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">2022-2026 </h2>
+                    <h2 class="offerDetailsContent">{{ offer.batchName }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Native <span style="color: red;">*</span></h2>
-                </div>
-                <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">North Blue</h2>
-                </div>
-            </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Company name <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">Straw Hats Private Limited</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.companyName }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Company Category <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">IT product</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.companyCategory }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Placement Organized By <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Own</h2>
+                    <h2 class="offerDetailsContent">{{ offer.organizedBy }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Company Location <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">Coimbatore , Tamil Nadu</h2>
+                    <h2 class="offerDetailsContent">{{ offer.companyLocation }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Internship Joining Date  <span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsHighlight">21.07.2025</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.internshipDate }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
+                <div class="offerLeftContainer">
+                    <h2 class="offerDetailsHeading">Placed Date  <span style="color: red;">*</span></h2>
+                </div>
+                <div class="offerRightContainer">
+                    <h2 class="offerDetailsHighlight">{{ offer.placedDate }}</h2>
+                </div>
+            </div>
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Stipend <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">15000 /- </h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.stipend }}</h2>
                 </div>
             </div>
-            <div class=" offerDetails">
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Company CTC <br /> (Salary) <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">21.07.2025</h2>
+                    <h2 class="offerDetailsHighlight">{{ offer.companyCtc }}</h2>
                 </div>
             </div>
-            <div class=" offerDetialsProofContainer">
+            <div class="offercontentContainer">
+            <div class="offerDetailsProofContainer">
                 <div class="offerLeftProofContainer">
                     <h2 class="offerDetailsHeading">Available Proofs <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightProofContainer">
-                    <div class="checkBoxInputContainer">
-                        <input class = "ProofCheckBox" type="checkbox" id="mailConfirmation" v-model="checkboxes.mailConfirmation">
-                        <label class = "offerDetailsContent" for="mailConfirmation">Mail Confirmation </label>
-                    </div>
+                    <div v-for="proof in offer.availableProofs" :key="proof._id" class="proofContainer">
+                            <input class="ProofCheckBox" type="checkbox" :id="proof.type" checked disabled>
+                            <label class="offerDetailsHighlight" :for="proof.type">{{ proof.type }} proof</label>
+                            <div class="offerRightContainer">
+                            <i class="pi pi-cloud-upload custom-icon" @click="openFile(proof.filePath)"></i>
+                            <!-- <img v-if="proof.fileType.startsWith('image/')" :src="getFileUrl(proof.filePath)" alt="Proof Image" class="proofImage"/> -->
+                            <span >{{ proof.originalFileName }}</span>
+                        </div>
 
-                    <div class="checkBoxInputContainer">
-                        <input class = "ProofCheckBox" type="checkbox" id="internshipLetter" v-model="checkboxes.internshipLetter">
-                        <label class = "offerDetailsContent"  for="internshipLetter">Internship Letter  </label>
-                    </div>
-
-                    <div class= "checkBoxInputContainer"> 
-                        <input class = "ProofCheckBox" type="checkbox" id="letterOfIntent" v-model="checkboxes.letterOfIntent">
-                        <label class = "offerDetailsContent"  for="letterOfIntent">Letter of Intent  </label>
-                    </div>
-
-                    <div class= "checkBoxInputContainer"> 
-                        <input class = "ProofCheckBox" type="checkbox" id="OfferLetter" v-model="checkboxes.OfferLetter">
-                        <label class = "offerDetailsContent"  for="OfferLetter">Offer Letter </label>
                     </div>
                 </div>
             </div>
-            <div class = "offerFileUploadContainer">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Mail Confirmation (Screen Shot) <br /> size (less than 1MB) <span style="color: red;">*</span> </h2>
-                </div>
-                <div class="offerRightContainer">
-                    <div>
-                     <button class="custom-file-input">
-                        <a :href="MailImgSrc" target="_blank" v-if="MailImgSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class = "offerFileUploadContainer">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Internship Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
-                </div>
-                <div class="offerRightContainer">
-                    <div>
-                     <button class="custom-file-input">
-                        <a :href="IlPdfSrc" target="_blank" v-if="IlPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class = "offerFileUploadContainer">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Letter of Intent (LOT)  <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
-                </div>
-                <div class="offerRightContainer">
-                    <div>
-                     <button class="custom-file-input">
-                        <a :href="LOTPdfSrc" target="_blank" v-if="LOTPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class = "offerFileUploadContainer">
-                <div class="offerLeftContainer">
-                    <h2 class="offerDetailsHeading">Offer Letter <br /> size (less than 1MB) <span style="color: red;">*</span> <br />(pdf Only)  </h2>
-                </div>
-                <div class="offerRightContainer">
-                    <div>
-                     <button class="custom-file-input">
-                        <a :href="OLPdfSrc" target="_blank" v-if="OLPdfSrc">
-                            <img :src="CloudUpload" alt="Cloud Upload" style="width: 18vh; height:18vh; margin-right: 0.5vh;"/>
-                        </a>
-                    </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" offerDetails">
+        </div>
+            <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Status<span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent" :class ="{'rejected' : status === 'Rejected', 'approved' : status === 'Approved' }">{{ status }}</h2>
+                    <h2 class="offerDetailsContent" :class="{'rejected': offer.status === 'Rejected', 'approved': offer.status === 'Approved'}">{{ offer.status }}</h2>
                 </div>
             </div>
-
-            <div class=" offerDetails" v-if = "status === 'Rejected'">
+            <div class="offerDetails" v-if="offer.status === 'Rejected'">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Reason For Rejection<span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent" style = "color: red;">{{ rejectedReason }}</h2>
+                    <h2 class="offerDetailsContent" style="color: red;">{{ offer.rejectedReason }}</h2>
                 </div>
             </div>
-            
-        </div>
-        <div>
         </div>
     </div>
 </template>
-
 <script>
+import axios from 'axios';
 import 'primeicons/primeicons.css';
 import CloudUpload from '../../../assets/cloudUpload.png';
-
 
 export default {
     name: "IndividualDetailsPage",
     data() {
         return {
-            checkboxes: {
-                mailConfirmation: false,
-                internshipLetter: false,
-                letterOfIntent: false
+            offer: {
+                name: '',
+                rollNo: '',
+                Gender: '',
+                dob: '',
+                mobile: '',
+                degree: '',
+                branch: '',
+                batch: '',
+                companyName: '',
+                companyCategory: '',
+                organizedBy: '',
+                companyLocation: '',
+                internshipDate: '',
+                placedDate: '',
+                stipend: '',
+                companyCtc: '',
+                status: '',
+                rejectedReason: '',
+                availableProofs: []
             },
-            CloudUpload: CloudUpload,
-            status: 'Rejected',
-            rejectedReason: 'Mail Confirmation not uploaded',
-            MailImgSrc : CloudUpload,
-            IlPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            LOTPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            OLPdfSrc : "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-
+            CloudUpload: CloudUpload
         };
     },
-    methods : {
-        triggerFileInput() {
-            this.$refs.fileInput.click();
+    methods: {
+        async fetchOfferDetails() {
+            const offerId = this.$route.params.id;
+            try {
+                const response = await axios.get(`http://localhost:5000/offer/detailsPage/${offerId}`);
+                console.log('Offer details:', response.data);
+                this.mapOfferDetails(response.data);
+            } catch (error) {
+                console.error('Error fetching offer details:', error);
+            }
         },
-        handleBackNavigation() {
-            this.$router.push('/admin/batchStudentDetails');
-        }
-    }
-}
-</script>
+        mapOfferDetails(data) {
+            this.offer = {
+                ...data,
+                dob: data.dob ? data.dob.split('T')[0] : '',
+                internshipDate: data.internshipDate ? data.internshipDate.split('T')[0] : '',
+                placedDate: data.placedDate ? data.placedDate.split('T')[0] : ''
+            };
+        },
+        getFileUrl(filePath){
+            return `http://localhost:5000/${filePath}`;
+        },
+        openFile(filePath) {
+            const fileUrl = this.getFileUrl(filePath);
+            window.open(fileUrl, '_blank');
+        },
+        async downloadPDF() {
+        try {
+            const offerId = this.$route.params.id;
+            const response = await axios.get(`http://localhost:5000/offer/downloadPDF/${offerId}`, {
+                responseType: 'blob'
+            });
 
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${this.offer.rollNo}_Offer Details.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+        }
+    },
+    },
+    mounted() {
+        this.fetchOfferDetails();
+    }
+};
+</script>
 <style scoped>
+
 .hidden {
     display: none;
 }
-.rejected{
+.rejected {
     color: red;
 }
-.approved{
+.approved {
     color: #1DB954;
+}
+
+.offerDetailsProofContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.proofContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-evenly;
+}
+
+.proofLink {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.proofImage {
+    width: 18vh;
+    height: 18vh;
+    margin-right: 0.5vh;
+}
+
+.offerDetailsContent {
+    margin-left: 10px;
+}
+
+.offerLeftProofContainer, .offerRightProofContainer {
+    flex: 1;
+}
+
+.offerRightProofContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-icon {
+    width: 5rem !important;
+    height: 5rem !important;
+    cursor: pointer;
 }
 </style>

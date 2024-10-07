@@ -43,10 +43,10 @@ const router = createRouter({
             path : '/admin/addBatch',
              component: AddBatch
         },{
-            path : '/admin/batchStudentDetails',
+            path : '/admin/batchStudentDetails/:id',
             component: BatchStudentDetails
         },{
-            path : '/admin/detailsPage',
+            path : '/detailsPage/:id',
             component : IndividualDetailsPage    
         },
         {
@@ -54,7 +54,7 @@ const router = createRouter({
             component : AddSingleUser
         },
         {
-            path : '/pendingdetailsPage',
+            path : '/pendingdetailsPage/:id',
             component : PendingdetailsPage
         },{
             path : '/student/home',

@@ -1,10 +1,10 @@
 <template>
-    <div class="details_searchContainer">
-            <input type="text" class="details_search" v-model="search" placeholder="Search " />
+    <div class="detailsSearchContainer">
+        <input type="text" class="detailsSearch" v-model="search" placeholder="Search " />
     </div>
     <div class="card">
-        <table class = "DataTable">
-            <thead class ="table_header">
+        <table class="DataTable">
+            <thead class="table_header">
                 <th>S.No</th>
                 <th>Name</th>
                 <th>Roll Number</th>
@@ -13,178 +13,208 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
-
-            <tr  class= " table-ContentConatiner" v-for="customer in displayedCustomers" :key="customer.id" @click = gotoDetailsPage(customer.id)>
-                <td>{{ customer.id }}.</td>
+            <tr class="table_ContentContainer" v-for="(customer, index) in displayedCustomers" :key="customer.studentid" @click="gotoDetailsPage(customer.studentid)">
+                <td>{{ index + 1 }}.</td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.Branch }}</td>
-                <td>{{ customer.CompanyName }}</td>
-                <td>{{ customer.SalaryPackage }}</td>
-                <td :class="{'Green': customer.Status === 'Approved', 'red': customer.Status !== 'Approved'}">{{ customer.Status }}</td>
+                <td>{{ customer.branch }}</td>
+                <td>{{ customer.companyName }}</td>
+                <td>{{ customer.salaryPackage }}</td>
+                <td :class="{'Green': customer.status === 'Approved', 'red': customer.status !== 'Approved'}">{{ customer.status }}</td>
             </tr>
-        </table>   
-        <div class="ButtonContainer"> 
-        <button class= " PreviousButton" @click = "previousPage" :disabled="currentPage === 1 ">
-            <i class=" pi pi-arrow-left" style = "color : #D4D4D7," ></i>
-            Previous 
-        </button>
-        <button class = "NextButton" @click = "nextPage" :disabled = "currentPage === maxPage">
-            Next
-            <i class="pi pi-arrow-right" style="color: #D4D4D7," ></i>
-        </button>
+        </table>
+        <div class="ButtonContainer">
+            <button class="PreviousButton" @click="previousPage" :disabled="currentPage === 1">
+                <i class="pi pi-arrow-left" style="color: #D4D4D7;"></i>
+                Previous
+            </button>
+            <button class="NextButton" @click="nextPage" :disabled="currentPage === maxPage">
+                Next
+                <i class="pi pi-arrow-right" style="color: #D4D4D7;"></i>
+            </button>
         </div>
     </div>
 </template>
 
 <script>
-// import DataTable from 'primevue/datatable';
-// import Column from 'primevue/column';
+import axios from 'axios';
 
 export default {
-    name : "MyDataTable",
-    // components: {
-    //     DataTable,
-    //     Column
-    // },
+    name: "MyDataTable",
     data() {
         return {
-            search : '',
-            customers: [
-                {
-                    id : 101,
-                    name : "Monkey D Luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Google",
-                    SalaryPackage : "10 LPA",
-                    Status : "Approved"
-                },
-                {
-                    id : 102,
-                    name : "Monkey D luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Microsoft",
-                    SalaryPackage : "9 LPA",
-                    Status : "Rejected"
-                },
-                {
-                    id : 103,
-                    name : "Monkey D Luffy",
-                    rollNumber : "18BCE1234",
-                    Branch : "CSE",
-                    CompanyName : "Amazon",
-                    SalaryPackage : "8 LPA",
-                    Status : "Approved"
-                },
-            ],
-            currentPage : 1,
-            itemsPerPage : 8
+            search: '',
+            customers: [],
+            currentPage: 1, 
+            itemsPerPage: 8
         };
     },
-    computed :{
-       displayedCustomers(){
-    let customers = this.customers;
+    computed: {
+        displayedCustomers() {
+            let customers = this.customers;
 
-    if (this.search) {
-        const searchLower = this.search.toLowerCase();
+            if (this.search) {
+                const searchLower = this.search.toLowerCase();
 
-        customers = customers.filter(customer =>
-            Object.values(customer).some(value =>
-                String(value).toLowerCase().includes(searchLower)
-            )
-        );
-    }
+                customers = customers.filter(customer =>
+                    Object.values(customer).some(value =>
+                        String(value).toLowerCase().includes(searchLower)
+                    )
+                );
+            }
 
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
 
-    return customers.slice(start, end);
-},
-        maxPage (){
-            return Math.ceil(this.customers.length / this.itemsPerPage);      
+            return customers.slice(start, end);
+        },
+        maxPage() {
+            return Math.ceil(this.customers.length / this.itemsPerPage);
         }
     },
-    methods :{
-        nextPage(){
-            if(this.currentPage < this.maxPage){
+    methods: {
+        async fetchOffers() {
+            try {
+                const userId = localStorage.getItem('userId');
+                const response = await axios.get('http://localhost:5000/offer/getoffers', {
+                    params: {
+                        userId: userId
+                    }
+                });
+                this.customers = response.data;
+            } catch (error) {
+                console.error('Error fetching offers:', error);
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Failed to fetch offers',
+                    life: 3000
+                });
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.maxPage) {
                 this.currentPage++;
             }
         },
-        previousPage(){
-            if(this.currentPage > 1){
+        previousPage() {
+            if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
-        // gotoDetailsPage(id){
-        //     this.$router.push(`/admin/detailsPage/${id}`);
-        // }
-        gotoDetailsPage(){
-            this.$router.push('/admin/detailsPage');
+        gotoDetailsPage(studentid) {
+            this.$router.push(`/detailsPage/${studentid}`);
         }
+    },
+    mounted() {
+        this.fetchOffers();
     }
 };
 </script>
 
 <style scoped>
 .card {
+    width: 90%;
+    height: 100vh;
     margin-top: 2rem;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     background-color: transparent;
-    overflow : auto;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
+    @media (max-width: 512px) {
+        width: 100%;
+        margin: 0 0 0 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
-.DataTable{
-    width : 80%;
-    height : 70%;
+
+.DataTable {
+    width: 80%;
+    height: 70%;
     border: none;
-    border-collapse: collapse;
     border-radius: .5rem;
-    margin: 0 0 0 0;
+    margin: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 10rem;
+
+    @media (max-width: 512px) {
+        width: 200%;
+        height: 100%;
+        margin: 10vw 0 0 90vw;
+
+    }
 
 }
-.table_header{
+
+.table_header {
     background-color: #18191A;
     color: white;
     text-align: center;
-    width : 100%;
-    border : none;
+    width: 100%;
+    border: none;
     padding: 8px;
     height: 6vh;
     font-size: large;
+
+    @media (max-width: 512px) {
+        width: 250%;
+        margin: 0 0 0 0;
+        font-size: small;
+        padding: 6px;
+    }
 }
-.table-ContentConatiner{
+
+.table_ContentContainer {
     background-color: #08080B;
-    border-bottom : 1px solid   rgb(67, 137, 208);
+    border-bottom: 1px solid rgb(67, 137, 208);
     padding: 8px;
-    height : 6vh;
+    height: 6vh;
     font-size: larger;
     font-weight: bold;
     text-align: center;
-    cursor : pointer;
+    cursor: pointer;
 
-    &:hover{
-        background-color: #18191A;
+    @media (max-width: 512px) {
+        width: 180%;
+        margin: 0 0 0 50vw;
+        font-size: small;
+        padding: 4px;
+        height: 1vh;
     }
 }
-.ButtonContainer{
-    width : 80%;
+
+.table_ContentContainer:hover {
+    background-color: #18191A;
+}
+
+.ButtonContainer {
+    width: 80%;
     height: 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 3rem;
     background-color: transparent;
+
+    @media (max-width: 512px) {
+        width: 200%;
+        margin: 0 0 0 100vw;
+        margin-top: 1rem;
+    }
 }
-.NextButton{
-    width : 8rem;
+
+.NextButton, .PreviousButton {
+    width: 8rem;
     height: 2.8rem;
     background-color: #18191A;
     border: none;
@@ -196,43 +226,71 @@ export default {
     justify-content: space-evenly;
     align-items: center;
 
-    &:hover{
-        background-color: #D4D4D7;
-        color: #8540ca;
+    @media (max-width: 512px) {
+        width: 6rem;
+        height: 2.5rem;
+        font-size: small;
     }
 }
-.PreviousButton{
-    width : 8.2rem;
-    height: 2.8rem;
-    background-color: #18191A;
-    border: none;
-    color: #D4D4D7;
-    font-size: larger;
-    border-radius: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
 
-    &:hover{
-        background-color: #D4D4D7;
-        color: #8540ca;
-    }
+.NextButton:hover, .PreviousButton:hover {
+    background-color: #D4D4D7;
+    color: #8540ca;
 }
+
 .Green {
     color: #1DB954;
 }
+
 .red {
     color: red;
 }
-
-.details_searchContainer{
-    width : 90%;
-    height: 4vh;
-    display : flex;
+.detailsSearchContainer {
+    width: 90%;
+    height: 1vh;
+    display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin: 4vw 0 0 0;
+    margin: 1vw 0 0 0;
 }
-</style>
 
+@media (max-width: 512px) {
+    .detailsSearchContainer {
+        width: 100vw;
+        margin: 3vh 0 0 0;
+        justify-content: center;
+    }
+}
+
+.detailsSearch {
+    display: flex;
+    background-color: #3F4448;
+    border: none;
+    color: var(--text);
+    width: 20vw;
+    height: 4vh;
+    padding: 0 0 0 1vw;
+    margin: 0 1vw 0 1vw;
+    border-radius: 0.8rem;
+    font-size: 1em;
+}
+
+.detailsSearch:focus {
+    outline: none;
+}
+
+.detailsSearch::placeholder {
+    color: var(--text);
+}
+
+@media (max-width: 512px) {
+    .detailsSearch {
+        width: 90vw;
+        height: 4vh;
+        font-size: small;
+        border-radius: 0.4rem;
+        padding: 10px 10px 10px 10px;
+    }
+}
+
+</style>

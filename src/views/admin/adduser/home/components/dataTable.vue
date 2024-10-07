@@ -7,27 +7,24 @@
         <table class="DataTable">
             <thead class="table_header">
                 <th><input class= "selectionCheckBox"  type="checkbox" @change="selectAll($event)" /></th>
-                <th>S.No</th>
                 <th>Name</th>
                 <th>Roll Number</th>
-                <th>Department </th>
                 <th>Email Id</th>
                 <th>Role</th>
                 <th>Edit</th>
             </thead>
-
+            <tr v-if="displayStudents.length === 0">
+                <td colspan="10" class="no-data">No data found.</td>
+            </tr>
+          
             <tr class="table-ContentConatiner" v-for="student in displayStudents" :key="student.id">
-                <td><input class= "selectionCheckBox" type="checkbox" v-model="student.selected" @change="updateSelectedStudents" /></td>
-                <td>{{ student.id }}.</td>
+                <td><input class="selectionCheckBox" type="checkbox" v-model="student.selected" @change="updateSelectedStudents" /></td>
                 <td v-if="!student.isEditing">{{ student.name }}</td>
                 <td v-else><input v-model="student.name" class="editInput" /></td>
-                <td v-if="!student.isEditing">{{ student.rollNumber }}</td>
-                <td v-else><input v-model="student.rollNumber" class="editInput" /></td>
-                <td v-if="!student.isEditing">{{ student.department }}</td>
-                <td v-else><input v-model="student.emailId" class="editInput" /></td>
-                <td v-if="!student.isEditing">{{ student.emailId }}</td>
-                <td v-else><input v-model="student.role" class="editInput" /></td>
-
+                <td v-if="!student.isEditing">{{ student.rollNo }}</td>
+                <td v-else><input v-model="student.rollNo" class="editInput" /></td>
+                <td v-if="!student.isEditing">{{ student.email }}</td>
+                <td v-else><input v-model="student.email" class="editInput" /></td>
                 <td v-if="!student.isEditing">{{ student.role }}</td>
                 <td v-else><input v-model="student.role" class="editInput" /></td>
                 <td>
@@ -36,6 +33,7 @@
                     </button>
                 </td>
             </tr>
+
         </table>
         <div class="ButtonContainer">
             <button class="PreviousButton" @click="previousPage" :disabled="currentPage === 1">
@@ -50,25 +48,21 @@
                 Delete Selected
             </button>
         </div>
+        <Toast ref="toast" position="top-right" :life="3000"></Toast>
     </div>
 </template>
-
 <script>
+import axios from 'axios';
+import Toast from 'primevue/toast';
 export default {
     name: "MyDataTable",
+    components: {
+        Toast
+    },
     data() {
         return {
             search: '',
-            students: [
-                { id: 1, name: "Monkey D Luffy", rollNumber: "7376222Al155", department: "CSE", emailId: "kavin.cs22@bitsathy.ac.in", role: "Admin", isEditing: false, selected: false },
-                { id: 2, name: "Roronoa Zoro", rollNumber: "7376222Al156", department: "CSE", emailId: "zoro123@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 3, name: "Nami", rollNumber: "7376222Al157", department: "CSE", emailId: "nami@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 4, name: "Usopp", rollNumber: "7376222Al158", department: "CSE", emailId: "usopp@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 5, name: "Sanji", rollNumber: "7376222Al159", department: "CSE", emailId: "sanji@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 6, name: "Tony Tony Chopper", rollNumber: "7376222Al160", department: "CSE", emailId: "tonytony@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 7, name: "Nico Robin", rollNumber: "7376222Al161", department: "CSE", emailId: "robin@gmail.com", role: "Student", isEditing: false, selected: false },
-                { id: 8, name: "Franky", rollNumber: "7376222Al162", department: "CSE", emailId: "superrrrr@gmail.com", role: "Student", isEditing: false, selected: false },
-            ],
+            students: [],
             currentPage: 1,
             itemsPerPage: 8,
             selectedStudents: []
@@ -97,6 +91,25 @@ export default {
         }
     },
     methods: {
+        async fetchStudents() {
+            try {
+                const response = await axios.get('http://localhost:5000/auth/users'); // Replace with your actual endpoint
+
+                this.students = response.data.map(student => ({
+                    ...student,
+                    isEditing: false,
+                    selected: false
+                }));
+            } catch (error) {
+                console.error('Error fetching students:', error);
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Error fetching students',
+                    detail: 'An error occurred while fetching students. Please try again later.',
+                    life: 3000
+                })
+            }
+        },
         nextPage() {
             if (this.currentPage < this.maxPage) {
                 this.currentPage++;
@@ -107,9 +120,34 @@ export default {
                 this.currentPage--;
             }
         },
-        editStudent(student) {
+        async editStudent(student) {
             if (student.isEditing) {
-                // Save the changes
+                try{
+                    await axios.put('http://localhost:5000/auth/updateusers', 
+                        {
+                            id: student.id,
+                            name: student.name,
+                            rollNo: student.rollNo,
+                            email: student.email,
+                            role: student.role
+                        });
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: 'Student details updated',
+                        detail: 'Student details updated successfully',
+                        life: 3000
+                    });
+                }
+                catch (error) {
+                    console.error('Error updating student:', error);
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'Error updating student',
+                        detail: 'An error occurred while updating student. Please try again later.',
+                        life: 3000
+                    });
+                }
+    
                 student.isEditing = false;
             } else {
                 // Enable editing
@@ -126,13 +164,44 @@ export default {
         updateSelectedStudents() {
             this.selectedStudents = this.students.filter(student => student.selected);
         },
-        deleteSelectedStudents() {
-            this.students = this.students.filter(student => !student.selected);
-            this.updateSelectedStudents();
+        async deleteSelectedStudents() {
+            const selectedIds = this.selectedStudents.map(student => student.id);
+            console.log(selectedIds); 
+            try {
+                await axios.delete('http://localhost:5000/auth/deleteusers', 
+                { 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: {
+                        ids: selectedIds
+                    }
+                });
+
+                this.$toast.add({
+                    severity: 'success',
+                    summary: 'Students deleted',
+                    detail: 'Selected students deleted successfully',
+                    life: 3000
+                });
+                this.fetchStudents();
+            } catch (error) {
+                console.error('Error deleting students:', error);
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Error deleting students',
+                    detail: 'An error occurred while deleting students. Please try again later.',
+                    life: 3000
+                });
+            }
         }
+    },
+    mounted() {
+        this.fetchStudents();
     }
 };
 </script>
+
 
 <style scoped>
 .card {
@@ -306,6 +375,13 @@ export default {
     background: linear-gradient(135deg, #8540ca, #D4D4D7);
     color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.no-data {
+    text-align: center;
+    padding: 8px;
+    font-size: larger;
+    color: #D4D4D7;
 }
 
 </style>

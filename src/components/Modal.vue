@@ -1,6 +1,6 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="closeModal" @keydown.esc="closeModal" tabindex="0">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content" :style="{ width: customWidth, height: customHeight }" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <span class="close-button" @click="closeModal">&times;</span>
       <header v-if="$slots.header" class="modal-header">
         <slot name="header"></slot>
@@ -22,6 +22,14 @@ export default {
     isVisible: {
       type: Boolean,
       required: true
+    },
+    customWidth: {
+            type: String,
+            default: '900px'
+    },
+    customHeight: {
+          type: String,
+          default: '550px'
     }
   },
   methods: {
@@ -73,6 +81,12 @@ export default {
   max-height: 1000px;
   outline: none;
 }
+.modal-body {
+    padding: 10px;
+    flex: 1;
+    height: auto;
+    overflow: hidden;
+}
 
 .close-button {
   position: absolute;
@@ -84,7 +98,7 @@ export default {
 
 .modal-header,
 .modal-footer {
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 @keyframes fadeIn {

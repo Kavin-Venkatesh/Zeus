@@ -8,7 +8,6 @@
     <div class="card">
         <table class = "DataTable">
             <thead class ="table_header">
-                <th>S.No</th>
                 <th>Name</th>
                 <th>Roll Number</th>
                 <th>Branch</th>
@@ -16,15 +15,17 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
+            <tr v-if="displayedCustomers.length === 0">
+                    <td colspan="10" class="no-data">No data found.</td>
+            </tr>
 
             <tr  class= " table-ContentConatiner" v-for="customer in displayedCustomers" :key="customer.id" @click = gotoDetailsPage(customer.id)>
-                <td>{{ customer.id }}.</td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.Branch }}</td>
-                <td>{{ customer.CompanyName }}</td>
-                <td>{{ customer.SalaryPackage }}</td>
-                <td class= "PendingStatus">{{ customer.Status }}</td>
+                <td>{{ customer.branch }}</td>
+                <td>{{ customer.companyName }}</td>
+                <td>{{ customer.salaryPackage }}</td>
+                <td class= "PendingStatus">{{ customer.status }}</td>
             </tr>
         </table>   
         <div class="ButtonContainer"> 
@@ -41,92 +42,73 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-    name : "MyDataTable",
-    // components: {
-    //     DataTable,
-    //     Column
-    // },
+    name: "MyDataTable",
     data() {
         return {
-            search : '',
-            customers: [
-                {
-                    id : 101,
-                    name : 'Monkey D. Luffy',
-                    rollNumber : '7376222AL155',
-                    Branch : 'CSE',
-                    CompanyName : 'Google',
-                    SalaryPackage : '10 LPA',
-                    Status : 'Pending',
-                },
-                {
-                    id : 102,
-                    name : 'Roronoa Zoro',
-                    rollNumber : '7376222AL156',
-                    Branch : 'ECE',
-                    CompanyName : 'Amazon',
-                    SalaryPackage : '12 LPA',
-                    Status : 'Pending',
-                },
-                {
-                    id : 103,
-                    name : 'Nami',
-                    rollNumber : '7376222AL157',
-                    Branch : 'CSE',
-                    CompanyName : 'Microsoft',
-                    SalaryPackage : '15 LPA',
-                    Status : 'Pending',
-                }
-            ],
-            currentPage : 1,
-            itemsPerPage : 8
+            search: '',
+            customers: [],
+            currentPage: 1,
+            itemsPerPage: 8
         };
     },
-    computed :{
-       displayedCustomers(){
-    let customers = this.customers;
+    computed: {
+        displayedCustomers() {
+            let customers = this.customers;
 
-    if (this.search) {
-        const searchLower = this.search.toLowerCase();
+            if (this.search) {
+                const searchLower = this.search.toLowerCase();
 
-        customers = customers.filter(customer =>
-            Object.values(customer).some(value =>
-                String(value).toLowerCase().includes(searchLower)
-            )
-        );
-    }
+                customers = customers.filter(customer =>
+                    Object.values(customer).some(value =>
+                        String(value).toLowerCase().includes(searchLower)
+                    )
+                );
+            }
 
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
 
-    return customers.slice(start, end);
-},
-        maxPage (){
-            return Math.ceil(this.customers.length / this.itemsPerPage);      
+            return customers.slice(start, end);
+        },
+        maxPage() {
+            return Math.ceil(this.customers.length / this.itemsPerPage);
         }
     },
-    methods :{
-        nextPage(){
-            if(this.currentPage < this.maxPage){
+    methods: {
+        async fetchCustomers() {
+            try {
+                const response = await axios.get('http://localhost:5000/offer/pendingOffers');
+                this.customers = response.data;
+            } catch (error) {
+                console.error('Error fetching customers:', error);
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.maxPage) {
                 this.currentPage++;
             }
         },
-        previousPage(){
-            if(this.currentPage > 1){
+        previousPage() {
+            if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
-        // gotoDetailsPage(id){
-        //     this.$router.push(`/admin/detailsPage/${id}`);
-        // }
-        gotoDetailsPage(){
-            this.$router.push('/pendingdetailsPage');
+        gotoDetailsPage(customerId) {
+            this.$router.push(`/pendingdetailsPage/${customerId}`);
         }
+
+        // gotoDetailsPage() {
+        //     this.$router.push(`/pendingdetailsPage`);
+        // }
+    },
+    mounted() {
+        this.fetchCustomers();
     }
 };
 </script>
-
 <style scoped>
 .card {
     margin-top: 2rem;
@@ -235,6 +217,13 @@ export default {
 .PendingStatus{
     color:  #8540ca;
 
+}
+
+.no-data {
+    text-align: center;
+    padding: 8px;
+    font-size: larger;
+    color: #D4D4D7;
 }
 </style>
 

@@ -67,7 +67,7 @@ export default {
             this.$router.push('/admin/addBatch');
         },
         async getBatches(){
-            const response = await axios.get('http://localhost:5000/batch/getBatch');
+            const response = await axios.get('http://localhost:5000/analytics/getBatch');
             this.Batches = response.data;
             console.log(this.Batches._id)
         }
