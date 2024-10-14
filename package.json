@@ -11,6 +11,7 @@
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "core-js": "^3.8.3",
+    "dompurify": "^3.1.7",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "primeicons": "^7.0.0",

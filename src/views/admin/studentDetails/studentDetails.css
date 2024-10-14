@@ -249,7 +249,7 @@
     margin: 0vw 0 0 0;
 }
 
-.DownloadDetails_button{
+.Download_details_button{
     width : 8.4rem;
     height: 2.8rem;
     background-color: var(--secondary);
@@ -261,12 +261,13 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-  
-    &:hover{
-        background-color: #D4D4D7;
-        color: #8540ca;
-    }
 
+    @media screen and (max-width: 768px){
+        width: 30vw;
+        height: 2.8rem;
+        font-size:medium;
+
+    }
 }
 .offerDetailsMainContainer{
     display: flex;

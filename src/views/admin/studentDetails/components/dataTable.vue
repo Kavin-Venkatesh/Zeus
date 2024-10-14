@@ -16,7 +16,7 @@
                 <tr v-if="displayedStudents.length === 0">
                     <td colspan="10" class="no-data">No data </td>
                 </tr>
-                <tr class="table-ContentConatiner" v-for="student in displayedStudents" :key="student.id" @click="gotoDetailsPage(student.id)">
+                <tr class="table_ContentContainer" v-for="student in displayedStudents" :key="student.id" @click="gotoDetailsPage(student.id)">
                     <td>{{ student.name }}</td>
                     <td>{{ student.rollNo }}</td>
                     <td>{{ student.branch }}</td>
@@ -93,9 +93,10 @@ export default {
     }
 };
 </script>
-
 <style scoped>
 .card {
+    width: 90%;
+    height: 100vh;
     margin-top: 2rem;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -104,16 +105,35 @@ export default {
     overflow: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin : 7vw 5vw 0 14vw; 
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
+
 .DataTable {
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 70%;
     border: none;
-    border-collapse: collapse;
     border-radius: .5rem;
+    margin: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 10rem;
+
+    @media (max-width: 768px) {
+        width: 250%;
+        height: 100%;
+        margin: 5vw 0 0 130vw;
+    }
 }
+
 .table_header {
     background-color: #18191A;
     color: white;
@@ -121,30 +141,56 @@ export default {
     width: 100%;
     border: none;
     padding: 8px;
-    height: 7vh;
+    height: 6vh;
     font-size: large;
+
+    @media (max-width: 768px) {
+        width:400%;
+        margin: 0;
+        font-size: small;
+        padding: 6px;
+    }
 }
-.table-ContentConatiner {
+
+.table_ContentContainer {
     background-color: #08080B;
     border-bottom: 1px solid rgb(67, 137, 208);
     padding: 8px;
-    height: 7vh;
+    height: 6vh;
     font-size: larger;
+    font-weight: bold;
     text-align: center;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+        width:400%;
+        margin: 0 0 0 50vw;
+        font-size: medium;
+        padding: 10px;
+        height: 5vh;
+    }
 }
-.table-ContentConatiner:hover {
+
+.table_ContentContainer:hover {
     background-color: #18191A;
 }
+
 .ButtonContainer {
-    width: 85%;
+    width: 80%;
     height: 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 3rem;
     background-color: transparent;
+
+    @media (max-width: 768px) {
+        width: 200%;
+        margin: 0 0 0 100vw;
+        margin-top: 1rem;
+    }
 }
+
 .NextButton, .PreviousButton {
     width: 8rem;
     height: 2.8rem;
@@ -157,23 +203,69 @@ export default {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    @media (max-width: 768px) {
+        width: 6rem;
+        height: 2.5rem;
+        font-size: small;
+    }
 }
+
 .NextButton:hover, .PreviousButton:hover {
     background-color: #D4D4D7;
     color: #8540ca;
 }
+
 .Green {
     color: #1DB954;
 }
+
 .red {
     color: red;
 }
+
 .details_searchContainer {
-    width: 95%;
-    height: 4vh;
+    width: 90%;
+    height: 1vh;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin: 1vw 0 0 0;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        margin: 3vh 0 0 0;
+        justify-content: center;
+    }
+}
+
+.details_search {
+    display: flex;
+    background-color: #3F4448;
+    border: none;
+    color: var(--text);
+    width: 20vw;
+    height: 4vh;
+    padding: 0 0 0 1vw;
+    margin: 0 1vw 0 1vw;
+    border-radius: 0.8rem;
+    font-size: 1em;
+
+    @media (max-width: 768px) {
+        width: 90vw;
+        height: 4vh;
+        font-size: small;
+        border-radius: 0.4rem;
+        padding: 10px;
+    }
+}
+
+.details_search:focus {
+    outline: none;
+}
+
+.details_search::placeholder {
+    color: var(--text);
 }
 
 .no-data {

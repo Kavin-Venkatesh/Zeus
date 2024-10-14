@@ -8,7 +8,7 @@
         <DataTable :students="students"/>
         <Toast />
         <div class="Download_ButtonContainer" @click="showModal = true">
-            <button class="DownloadDetails_button">
+            <button class="Download_details_button">
                 <i class="pi pi-cloud-download"></i>
                 Download
             </button>   
@@ -83,7 +83,6 @@ export default {
         async fetchStudents() {
             try {
                 const id = this.$route.params.id;
-                console.log('id:', id);
                 const response = await axios.get(`http://localhost:5000/batches/batchStudentDetails/${id}`);
                 this.students = response.data;
             } catch (error) {
@@ -171,7 +170,7 @@ export default {
 .checkbox-row {
     display: flex;
     align-items: center;
-    width: 50%; /* Two checkboxes per row */
+    width: 50%;
     padding: 5px;
 }
 
