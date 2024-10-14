@@ -1,8 +1,8 @@
 <template>
-    <div class="organiserMainContainer">
-        <div v-if="batchDetails" class="analyticsHeader">
-            <i class="pi pi-arrow-left" style="font-size: 1.1rem; cursor: pointer; margin: 0vw 0 0 5vw;" @click="handleReturnNavigation"></i>
-            <h1 class="analytics_subheading">Analytics of Batch {{ batchDetails.year }}</h1>
+    <div class="admin_mainContainer">
+        <div v-if="batchDetails" class="analyticsPageHeader">
+            <i class="pi pi-arrow-left" style="font-size: 1.1rem; cursor: pointer; margin: 1vw 0vw 0.5vw 2vw;" @click="handleReturnNavigation"></i>
+            <h1 class="analyticsSubheading">Analytics of Batch {{ batchDetails.year }}</h1>
         </div>
         <div class="chart_container">
             <div class="pieChart_card">
@@ -20,54 +20,54 @@
         </div>
         <div class="details_container">
             <div v-if="batchDetails" class="individualdetails_LeftContainer">
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">1. Total Number of Students:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.totalStudents }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">2. Placed Number of Students:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.studentsPlaced }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">3. Students Interested in Placements:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.studentsInterest }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">4. Students Not Interested in Placements:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.studentsNotInterest }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">5. Students Not Get Placed:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.studentsNotPlaced }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">6. Total Number of Companies:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.NumberofCompanies }}</h2>
                 </div>
             </div>
-            <div class="verticalLine"></div>
+            <div class="vertical-line"></div>
             <div v-if="batchDetails" class="individualdetails_LeftContainer">
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">7. Total Number of Offers:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.NumberofOffers }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">8. Placement percentage:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.PlacementPercentage }}</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">9. Average Salary:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.avSalary }} LPA</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">10. Highest Salary Package:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.highSalary }} LPA</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">11. Lowest Salary Package:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.lowSalary }} LPA</h2>
                 </div>
-                <div class="individualDetails">
+                <div class="individual_details">
                     <h2 class="individual_details_h3">12. Available Students Proof Count:</h2>
                     <h2 class="individual_details_h3">{{ batchDetails.proofCount }}</h2>
                 </div>
@@ -84,13 +84,11 @@
 import 'primeicons/primeicons.css';
 import Chart from 'primevue/chart';
 import Barchart from './Barchart.vue';
+import axios from 'axios';
 import { saveAs } from 'file-saver';
 import ExcelJS from 'exceljs';
-// import '../../admin/dashboard/dashboard.css';
-// import '../../admin/dashboard/dashboard.css';
 // import '../../dashboard/dashboard.css';
 
-// import '../dashboard/organisersHome.css';
 export default {
     name: 'AnalyticsPage',
     components: {
@@ -99,31 +97,28 @@ export default {
     },
     data() {
         return {
-            batchDetails: {
-                year: '2023',
-                totalStudents: 100,
-                studentsPlaced: 70,
-                studentsInterest: 80,
-                studentsNotInterest: 20,
-                studentsNotPlaced: 30,
-                NumberofCompanies: 50,
-                NumberofOffers: 90,
-                PlacementPercentage: '70%',
-                avSalary: 6,
-                highSalary: 15,
-                lowSalary: 3,
-                proofCount: 10
-            },
+            batchDetails: null,
             chartData: null,
             chartOptions: {}
         };
     },
     created() {
-        this.chartData = this.setChartData();
+        const id = this.$route.params.id;
+        console.log(id);
+        this.getBatchDetails(id);
         this.chartOptions = this.setChartOptions();
         document.title = "Analytics Page";
     },
     methods: {
+        async getBatchDetails(id) {
+            try {
+                const response = await axios.get(`http://localhost:5000/analytics/getBatch/${id}`);
+                this.batchDetails = response.data;
+                this.chartData = this.setChartData();
+            } catch (error) {
+                console.error('Error fetching batch details:', error);
+            }
+        },
         handleReturnNavigation() {
             this.$router.push('/organisers/home');
         },
@@ -133,8 +128,8 @@ export default {
                 datasets: [
                     {
                         data: [this.batchDetails.studentsPlaced, this.batchDetails.studentsNotPlaced, this.batchDetails.studentsInterest, this.batchDetails.studentsNotInterest],
-                        backgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
-                        hoverBackgroundColor: ['rgba(255, 0, 0, 0.7)', 'rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)', 'rgba(75, 192, 192, 0.7)'],
+                        backgroundColor: ['rgba(255, 0, 0, 0.7)', 'rgba(255, 99, 132, 0.7)', 'rgba(54, 162, 235, 0.7)', 'rgba(75, 192, 192, 0.7)'],
+                        hoverBackgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
                         offset: [40, 35, 30, 30],
                         borderWidth: 0,
                     }

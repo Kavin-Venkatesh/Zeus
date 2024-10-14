@@ -60,8 +60,8 @@ export default {
         } else if (user.role === 'user') {
           console.log('student');
           this.$router.push('/student/home');
-        } else if (user.role === 'organizer') {
-          this.$router.push('/organizers/home');
+        } else if (user.role === 'organiser') {
+          this.$router.push('/organisers/home');
         } else {
           this.$router.push('/');
         }
@@ -88,7 +88,7 @@ export default {
       } else if (userRole === 'student') {
         this.$router.push('/student/home');
       } else if (userRole === 'organizer') {
-        this.$router.push('/organizer/home');
+        this.$router.push('/organisers/home');
       } else {
         this.$router.push('/');
       }

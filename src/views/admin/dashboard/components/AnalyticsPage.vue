@@ -106,7 +106,6 @@ export default {
     },
     created() {
         const id = this.$route.params.id;
-        console.log(id);
         this.getBatchDetails(id);
         this.chartOptions = this.setChartOptions();
         document.title = "Analytics Page";

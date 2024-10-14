@@ -12,7 +12,7 @@
                     <img :src="batch.image" alt="Group" class="pattern_image" />
                 </div>
                 <div class="detailsNameCard">
-                    <h1 class="details_BatchName">Batch : {{ batch.year }}</h1>
+                    <h1 class="details_BatchName">Batch: {{ batch.batchName }}</h1>
                 </div>
             </div>
         </div>
@@ -20,53 +20,18 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Group1 from '../../../assets/group1.jpg';
 import '../studentdetails/studentDetails.css';
 
 export default {
     name: 'OrgraniserStudentsDetails',
-    data(){
+    data() {
         return {
             search: '',
             images: [Group1],
-            Batches: [
-                {
-                    _id: '1',
-                    year: '2019-2024'
-                },
-                {
-                    _id: '2',
-                    year: '2020-2025'
-                },
-                {
-                    _id: '3',
-                    year: '2021-2026'
-                },
-                {
-                    _id: '4',
-                    year: '2022-2027'
-                },{
-                    _id: '5',
-                    year: '2023-2028'
-                },{
-                    _id: '6',
-                    year: '2024-2029'
-                },{
-                    _id: '7',
-                    year: '2025-2030'
-                },{
-                    _id: '8',
-                    year: '2026-2031'
-                },{
-                    _id: '9',
-                    year: '2027-2032'
-                },{
-                    _id: '10',
-                    year: '2028-2033'
-                }
-
-            ], 
-        }
+            Batches: []
+        };
     },
     computed: {
         batchesWithImages() {
@@ -78,22 +43,30 @@ export default {
                 ...batch,
                 image: this.images[Math.floor(Math.random() * this.images.length)]
             })).filter(batch => {
-                return batch.year && batch.year.includes(this.search);
+                return batch.batchName && batch.batchName.includes(this.search);
             });
         }
     },
     methods: {
-        // handleNaviagte(batchId) {
-        //     this.$router.push(`/admin/batchStudentDetails/${batchId}`);
-        // }
+        async fetchBatches() {
+            try {
+                const response = await axios.get('http://localhost:5000/batches/getBatch'); // Replace with your actual endpoint
+                this.Batches = response.data;
+                console.log(this.Batches);
+            } catch (error) {
+                console.error('Error fetching batches:', error);
+            }
+        },
         handleNaviagte(batchId) {
-            console.log(batchId)
-            this.$router.push('/organisers/batchStudentDetails');
+            this.$router.push(`/organisers/batchStudentDetails/${batchId}`);
         }
+    },
+    mounted() {
+        this.fetchBatches();
     }
-}
+};
 </script>
 
 <style scoped>
-@import '../studentDetails/studentDetails.css'
+@import '../studentDetails/studentDetails.css';
 </style>

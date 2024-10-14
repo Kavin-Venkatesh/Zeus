@@ -10,91 +10,91 @@
                     <p class="InputDetails">Batch Year </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.year" placeholder="Year" type="text" required />
+                <input class="batchInput" v-model="BatchDetails.year" type="text" required />
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Total Number of Students </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.totalStudents" placeholder="Total Number of students"  type="number" required />
+                <input class="batchInput" v-model="BatchDetails.totalStudents" type="number" required />
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Placed Number of Students </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model ="BatchDetails.studentsPlaced" placeholder="Placed Number of students"  type="number" required/>
+                <input class="batchInput" v-model ="BatchDetails.studentsPlaced"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Students Interested in Placements </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model = "BatchDetails.studentsInterest"  placeholder="students Interested in Placement" type="number" required/>
+                <input class="batchInput" v-model = "BatchDetails.studentsInterest"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Students not Interested in Placements </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model  ="BatchDetails.studentsNotInterest" placeholder="students not Interested in Placement" type="number" required/>
+                <input class="batchInput" v-model  ="BatchDetails.studentsNotInterest"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Students not get Placed </p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.studentsNotPlaced" placeholder="students not get Placed" type="number" required/>
+                <input class="batchInput" v-model="BatchDetails.studentsNotPlaced"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Total number of companies</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.NumberofCompanies" placeholder="Total Number of companies" type="number" required/>
+                <input class="batchInput" v-model="BatchDetails.NumberofCompanies"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Total number of offers</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model ="BatchDetails.NumberofOffers" placeholder="Total Number of Offers" type="number" required/>
+                <input class="batchInput" v-model ="BatchDetails.NumberofOffers" type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Placement Percentage</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model ="BatchDetails.PlacementPercentage"   placeholder="Placement Percentage" type="number" required/>
+                <input class="batchInput" v-model ="BatchDetails.PlacementPercentage"   type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Average Salary Package</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.avSalary"  placeholder="Average Salary Package" type="number" required/>
+                <input class="batchInput" v-model="BatchDetails.avSalary"   type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Highest Salary Package</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.highSalary" placeholder="Highest Salary Package" type="number" required/>
+                <input class="batchInput" v-model="BatchDetails.highSalary"  type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails">Lowest Salary Package</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.lowSalary" placeholder="Lowest Salary Package"  type="number" required/>
+                <input class="batchInput" v-model="BatchDetails.lowSalary"   type="number" required/>
             </div>
             <div class="inputContainer">
                 <div class="inputQuestionContainer">
                     <p class="InputDetails"> Number of Available students Proof</p>
                     <p class="required_symbol">*</p>
                 </div>
-                <input class="batchInput" v-model="BatchDetails.proofCount" placeholder="Number of Available students Proof" type="number"  required/>
+                <input class="batchInput" v-model="BatchDetails.proofCount"  type="number"  required/>
             </div>
             <div class = "addBatch_buttonContainer" >
             <button class ="cancelBatch_button" @click="handleCancelSubmit">
@@ -162,25 +162,7 @@ export default {
         async handleFormSubmit() {
             console.log(this.BatchDetails);
             try{
-                const response =  await axios.post('http://localhost:5000/analytics/addBatch',this.BatchDetails)
-                // year : this.BatchDetails.year,
-                // totalStudents : this.BatchDetails.totalStudents,
-                // studentsPlaced : this.BatchDetails.studentsPlaced,
-                // studentsInterest : this.BatchDetails.studentsInterest,
-                // studentsNotInterest :this.BatchDetails.studentsNotInterest,
-                // studentsNotPlaced: this.BatchDetails.studentsNotPlaced,
-                // NumberofCompanies:this.BatchDetails.NumberofCompanies,
-                // NumberofOffers: this.BatchDetails.NumberofOffers,
-                // PlacementPercentage:this.BatchDetails.PlacementPercentage,
-                // avSalary:this.BatchDetails.avSalary,
-                // highSalary : this.BatchDetails.highSalary,
-                // lowSalary : this.BatchDetails.lowSalary,
-                // proofCount: this.BatchDetails.proofCount
-                
-            // )
-            if(response){
-                console.log("add completed")   
-            }
+                 await axios.post('http://localhost:5000/analytics/addBatch',this.BatchDetails)
             }
             catch(error){
                 console.log("An errored while adding the batch", error)

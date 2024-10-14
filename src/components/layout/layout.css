@@ -1,5 +1,5 @@
 
-.admin_navbar{
+.admin_navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,42 +7,46 @@
     height: 8vh;
     background-color: #18191A;
     color: var(--text);
-    margin: 0 0 0 0;
+    margin: 0;
+    transition: transform 0.3s ease-in-out;
 }  
-.navButtonContainer{
+
+.navButtonContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 47vw;
     height: 100%;
-    margin: 0 0 0 0;
-
+    margin: 0;
 }
-.nav_button{
+
+.nav_button {
     background-color: #18191A;
     color: var(--text);
     border: none;
     font-size: 1.1em;
     cursor: pointer;
-    padding: 0 1vw 0 1vw;
-    margin: 0 1vw 0 1vw;
-    width : 9vw;
+    padding: 0 1vw;
+    margin: 0 1vw;
+    width: 9vw;
     height: 2.5vw;
     border-radius: 0.5rem;
     text-decoration: none;
     align-items: center;
     justify-content: space-evenly;
-
-    &:hover{
-        background-color: #242526 ;
-    }
+    display: flex;
 }
 
-.logout_container{
+.nav_button:hover {
+    background-color: #242526;
+}
+
+.logout_container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 20vw;
     height: 100%;
-    margin: 0 0 0 0vw;
+    margin: 0;
 }
+

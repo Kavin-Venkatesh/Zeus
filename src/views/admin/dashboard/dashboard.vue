@@ -2,7 +2,7 @@
     <div class="dasboard_mainContainer">
         <div class="dashboard_header">
             <h1 class="dashboard_subheading">Batch Details</h1>
-            <input type="text" class="dashboard_search" v-model="search" placeholder="Search " />
+            <input type="text" class="analytics_search" v-model="search" placeholder="Search " />
         </div>
         <div class="dashboard_batch_container">
             <div class="Batch__details_card" v-for="batch in batchesWithImages" :key="batch._id"
@@ -24,14 +24,8 @@
 </template>
 
 <script>
-import Group1 from '../../../assets/group1.jpg';
-import Group2 from '../../../assets/group2.jpg';
-import Group3 from '../../../assets/group3.jpg';
-import Group4 from '../../../assets/group4.jpg';
-import Group5 from '../../../assets/group5.jpg';
-import Group6 from '../../../assets/group6.jpg';
-import Group7 from '../../../assets/group7.png';
-import Group8 from '../../../assets/group8.jpg';
+
+import Image from '../../../assets/group6.jpg';
 
 import axios from 'axios';
 
@@ -41,7 +35,7 @@ export default {
     data() {
         return {
             search: '',
-            images: [Group1, Group2, Group3, Group4, Group5, Group6, Group7, Group8],
+            images: [Image],
             Batches: [], 
         }
     },

@@ -1,11 +1,10 @@
 <template>
     <div class="details_searchContainer">
-            <input type="text" class="details_search" v-model="search" placeholder="Search " />
+        <input type="text" class="details_search" v-model="search" placeholder="Search " />
     </div>
     <div class="card">
-        <table class = "DataTable">
-            <thead class ="table_header">
-                <th>S.No</th>
+        <table class="DataTable">
+            <thead class="table_header">
                 <th>Name</th>
                 <th>Roll Number</th>
                 <th>Branch</th>
@@ -13,154 +12,83 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
-
-            <tr  class= " table-ContentConatiner" v-for="customer in displayedCustomers" :key="customer.id" @click = gotoDetailsPage(customer.id)>
-                <td>{{ customer.id }}.</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.Branch }}</td>
-                <td>{{ customer.CompanyName }}</td>
-                <td>{{ customer.SalaryPackage }}</td>
-                <td :class="{'Green': customer.Status === 'Approved', 'red': customer.Status !== 'Approved'}">{{ customer.Status }}</td>
-            </tr>
-        </table>   
-        <div class="ButtonContainer"> 
-        <button class= " PreviousButton" @click = "previousPage" :disabled="currentPage === 1 ">
-            <i class=" pi pi-arrow-left" style = "color : #D4D4D7," ></i>
-            Previous 
-        </button>
-        <button class = "NextButton" @click = "nextPage" :disabled = "currentPage === maxPage">
-            Next
-            <i class="pi pi-arrow-right" style="color: #D4D4D7," ></i>
-        </button>
+            <tbody>
+                <tr v-if="displayedStudents.length === 0">
+                    <td colspan="10" class="no-data">No data</td>
+                </tr>
+                <tr class="table-ContentConatiner" v-for="student in displayedStudents" :key="student.id" @click="gotoDetailsPage(student.id)">
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.rollNo }}</td>
+                    <td>{{ student.branch }}</td>
+                    <td>{{ student.companyName }}</td>
+                    <td>{{ student.salaryPackage }}</td>
+                    <td :class="{'Green': student.status === 'Approved', 'red': student.status !== 'Approved'}">{{ student.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ButtonContainer">
+            <button class="PreviousButton" @click="previousPage" :disabled="currentPage === 1">
+                <i class="pi pi-arrow-left" style="color: #D4D4D7;"></i>
+                Previous
+            </button>
+            <button class="NextButton" @click="nextPage" :disabled="currentPage === maxPage">
+                Next
+                <i class="pi pi-arrow-right" style="color: #D4D4D7;"></i>
+            </button>
         </div>
     </div>
 </template>
 
 <script>
-// import DataTable from 'primevue/datatable';
-// import Column from 'primevue/column';
-
 export default {
-    name : "MyDataTable",
-    // components: {
-    //     DataTable,
-    //     Column
-    // },
-    data() {
-        return {
-            search : '',
-            customers: [
-                {
-                    id: 1,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },
-                {
-                    id: 2,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 3,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 4,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 5,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 6,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 7,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                },{
-                    id: 8,
-                    name: 'John Doe',
-                    rollNumber: '123456',
-                    Branch: 'CSE',
-                    CompanyName: 'Google',
-                    SalaryPackage: '10LPA',
-                    Status: 'Approved'
-                }
-            ],
-            currentPage : 1,
-            itemsPerPage : 8
-        };
-    },
-    computed :{
-       displayedCustomers(){
-    let customers = this.customers;
-
-    if (this.search) {
-        const searchLower = this.search.toLowerCase();
-
-        customers = customers.filter(customer =>
-            Object.values(customer).some(value =>
-                String(value).toLowerCase().includes(searchLower)
-            )
-        );
-    }
-
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-
-    return customers.slice(start, end);
-},
-        maxPage (){
-            return Math.ceil(this.customers.length / this.itemsPerPage);      
+    name: "DataTable",
+    props: {
+        students: {
+            type: Array,
+            required: true
         }
     },
-    methods :{
-        nextPage(){
-            if(this.currentPage < this.maxPage){
+    data() {
+        return {
+            search: '',
+            currentPage: 1,
+            itemsPerPage: 8
+        };
+    },
+    computed: {
+        displayedStudents() {
+            let students = this.students;
+
+            if (this.search) {
+                const searchLower = this.search.toLowerCase();
+                students = students.filter(student =>
+                    Object.values(student).some(value =>
+                        String(value).toLowerCase().includes(searchLower)
+                    )
+                );
+            }
+            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+
+            return students.slice(start, end);
+        },
+        maxPage() {
+            return Math.ceil(this.students.length / this.itemsPerPage);
+        }
+    },
+    methods: {
+        nextPage() {
+            if (this.currentPage < this.maxPage) {
                 this.currentPage++;
             }
         },
-        previousPage(){
-            if(this.currentPage > 1){
+        previousPage() {
+            if (this.currentPage > 1) {
                 this.currentPage--;
             }
         },
-        // gotoDetailsPage(id){
-        //     this.$router.push(`/admin/detailsPage/${id}`);
-        // }
-        gotoDetailsPage(){
-            this.$router.push('/organisers/detailsPage');
+        gotoDetailsPage(id) {
+            this.$router.push(`/detailsPage/${id}`);
         }
     }
 };

@@ -66,10 +66,10 @@ const router = createRouter({
             path : '/organisers/home',
             component : OrganisersPage
         },{
-            path : '/organisers/analytics',
+            path : '/organisers/analytics/:id',
             component : OrganisersAnalytics
         },{
-            path : '/organisers/batchStudentDetails',
+            path : '/organisers/batchStudentDetails/:id',
             component : OrganiserBatchDetails
         },{
             path : '/organisers/detailsPage',
