@@ -37,9 +37,9 @@
                 <div class="inputRightContainer">
                     <select id="gender" v-model="form.selectedGender" class="selectOption">
                         <option value="" disabled>Select your gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="prefer_not_to_say">Prefer not to say</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
                     </select>
                 </div>
             </div>
@@ -68,9 +68,9 @@
                 </div>
                 <div class="inputRightContainer">
                     <select id="degree" v-model="form.selectedDegree" class="selectOption">
-                        <option value="be">BE(Bachelor of Engineering)</option>
-                        <option value="btech">B.Tech (Bachelor of Technology)</option>
-                        <option value="other">Other</option>
+                        <option value="BE">BE(Bachelor of Engineering)</option>
+                        <option value="B.Tech">B.Tech (Bachelor of Technology)</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
             </div>
@@ -84,22 +84,22 @@
                     <select id="branch" v-model="form.selectedBranch" class="selectOption">
                         <option value="Biomedical Engineering">B.E. - Biomedical Engineering</option>
                         <option value="Biotechnology">B.Tech. - Biotechnology</option>
-                        <option value="Electronics Instrumentation Engineering">B.E. - Electronics And Instrumentation
+                        <option value="Electronics and Instrumentation Engineering">B.E. - Electronics And Instrumentation
                             Engineering</option>
-                        <option value="Electronics Communication Engineering">B.E. - Electronics And Communication
+                        <option value="Electronics and Communication Engineering">B.E. - Electronics And Communication
                             Engineering</option>
-                        <option value="Electrical Electronics Engineering">B.E. - Electrical And Electronics Engineering
+                        <option value="Electrical and Electronics Engineering">B.E. - Electrical And Electronics Engineering
                         </option>
                         <option value="Computer Science Engineering">B.E. - Computer Science And Engineering</option>
-                        <option value="Computer Science Design">B.E. - Computer Science And Design</option>
+                        <option value="Computer Science and Design">B.E. - Computer Science And Design</option>
                         <option value="Civil Engineering">B.E. - Civil Engineering</option>
                         <option value="Information Science Engineering">B.E. - Information Science And Engineering
                         </option>
                         <option value="Mechanical Engineering">B.E. - Mechanical Engineering</option>
                         <option value="Mechatronics Engineering">B.E. - Mechatronics Engineering</option>
                         <option value="Agricultural Engineering">B.Tech. - Agricultural Engineering</option>
-                        <option value="Aritificial Intelligence Data Science">B.Tech. - Artificial Intelligence And Data Science</option>
-                        <option value="Artificial Intelligence Machine Learning">B.Tech. - Artificial Intelligence And Machine Learning
+                        <option value="Aritificial Intelligence and Data Science">B.Tech. - Artificial Intelligence And Data Science</option>
+                        <option value="Artificial Intelligence and  Machine Learning">B.Tech. - Artificial Intelligence And Machine Learning
                         </option>
                         <option value="Computer Science Business System">B.Tech. - Computer Science And Business System
                         </option>

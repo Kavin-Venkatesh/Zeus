@@ -28,7 +28,7 @@
             <select class="inputSelection" v-model="form.role" id="role" required>
               <option value="admin">Admin</option>
               <option value="organiser">Organiser</option>
-              <option value="user">Student</option>
+              <option value="student">Student</option>
             </select>
           </div>
           <div class="form-group">
@@ -73,7 +73,7 @@ export default {
         name: "",
         registerNumber: "",
         email: "",
-        role: "user",
+        role: "student",
         password: "",
         confirmPassword: "",
       },

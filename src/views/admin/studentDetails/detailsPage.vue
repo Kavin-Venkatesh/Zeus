@@ -139,25 +139,37 @@
                     <h2 class="offerDetailsHighlight">{{ offer.companyCtc }}</h2>
                 </div>
             </div>
-            <div class="offercontentContainer">
-            <div class="offerDetailsProofContainer">
+
+            <div class="offerDetialsProofContainer">
                 <div class="offerLeftProofContainer">
                     <h2 class="offerDetailsHeading">Available Proofs <span style="color: red;">*</span> </h2>
                 </div>
                 <div class="offerRightProofContainer">
                     <div v-for="proof in offer.availableProofs" :key="proof._id" class="proofContainer">
                             <input class="ProofCheckBox" type="checkbox" :id="proof.type" checked disabled>
-                            <label class="offerDetailsHighlight" :for="proof.type">{{ proof.type }} proof</label>
-                            <div class="offerRightContainer">
-                            <i class="pi pi-cloud-upload custom-icon" @click="openFile(proof.filePath)"></i>
-                            <!-- <img v-if="proof.fileType.startsWith('image/')" :src="getFileUrl(proof.filePath)" alt="Proof Image" class="proofImage"/> -->
-                            <span >{{ proof.originalFileName }}</span>
-                        </div>
-
+                            <label class="offerDetailsHighlight" :for="proof.type">{{  proof.type.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) }}  </label>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="offercontentContainer">
+                <div v-for="proof in offer.availableProofs" :key="proof._id" class="proofContainer">
+                    <div class="offerLeftContainer">
+                                    <label class="offerDetailsHeading" :for="proof.type">{{  proof.type.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) }}  </label>
+                    </div>
+
+                <div class="offerDetailsProofContainer">
+                    <div class="offerRightProofContainer">
+                                <div class="offerRightProofContainer">
+                                <i class="pi pi-cloud-upload "  style="font-size: 7rem ; cursor: pointer; margin: 0 0 0 10vw;" @click="openFile(proof.filePath)"></i>
+                                <!-- <img v-if="proof.fileType.startsWith('image/')" :src="getFileUrl(proof.filePath)" alt="Proof Image" class="proofImage"/> -->
+                                <span style="margin: 0 0 0 10vw;" >{{ proof.originalFileName }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="offerDetails">
                 <div class="offerLeftContainer">
                     <h2 class="offerDetailsHeading">Status<span style="color: red;">*</span> </h2>
@@ -215,7 +227,6 @@ export default {
             const offerId = this.$route.params.id;
             try {
                 const response = await axios.get(`http://localhost:5000/offer/detailsPage/${offerId}`);
-                console.log('Offer details:', response.data);
                 this.mapOfferDetails(response.data);
             } catch (error) {
                 console.error('Error fetching offer details:', error);
@@ -246,7 +257,7 @@ export default {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `${this.offer.rollNo}_Offer Details.pdf`);
+            link.setAttribute('download', `${this.offer.rollNo}_${this.offer.companyName}Offer Details.pdf`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -314,9 +325,4 @@ export default {
     flex-direction: column;
 }
 
-.custom-icon {
-    width: 5rem !important;
-    height: 5rem !important;
-    cursor: pointer;
-}
 </style>

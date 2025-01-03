@@ -13,14 +13,14 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
-            <tr class="table_ContentContainer" v-for="(customer, index) in displayedCustomers" :key="customer.studentid" @click="gotoDetailsPage(customer.studentid)">
+            <tr class="table_ContentContainer" v-for="(offer, index) in displayedStudents" :key="offer.studentid" @click="gotoDetailsPage(offer.studentid)">
                 <td>{{ index + 1 }}.</td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.branch }}</td>
-                <td>{{ customer.companyName }}</td>
-                <td>{{ customer.salaryPackage }}</td>
-                <td :class="{'Green': customer.status === 'Approved', 'red': customer.status !== 'Approved'}">{{ customer.status }}</td>
+                <td>{{ offer.name }}</td>
+                <td>{{ offer.rollNumber }}</td>
+                <td>{{ offer.branch }}</td>
+                <td>{{ offer.companyName }}</td>
+                <td>{{ offer.salaryPackage }}</td>
+                <td :class="{'Green': offer.status === 'Approved', 'red': offer.status !== 'Approved'}">{{ offer.status }}</td>
             </tr>
         </table>
         <div class="ButtonContainer">
@@ -44,20 +44,20 @@ export default {
     data() {
         return {
             search: '',
-            customers: [],
+            offers: [],
             currentPage: 1, 
-            itemsPerPage: 8
+            itemsPerPage: 20
         };
     },
     computed: {
-        displayedCustomers() {
-            let customers = this.customers;
+        displayedStudents() {
+            let offers = this.offers;
 
             if (this.search) {
                 const searchLower = this.search.toLowerCase();
 
-                customers = customers.filter(customer =>
-                    Object.values(customer).some(value =>
+                offers = offers.filter(offer =>
+                    Object.values(offer).some(value =>
                         String(value).toLowerCase().includes(searchLower)
                     )
                 );
@@ -66,10 +66,10 @@ export default {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;
 
-            return customers.slice(start, end);
+            return offers.slice(start, end);
         },
         maxPage() {
-            return Math.ceil(this.customers.length / this.itemsPerPage);
+            return Math.ceil(this.offers.length / this.itemsPerPage);
         }
     },
     methods: {
@@ -81,7 +81,7 @@ export default {
                         userId: userId
                     }
                 });
-                this.customers = response.data;
+                this.offers = response.data;
             } catch (error) {
                 console.error('Error fetching offers:', error);
                 this.$toast.add({

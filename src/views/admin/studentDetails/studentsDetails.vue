@@ -7,12 +7,13 @@
 
         <div class="details_batchContainer">
             <div class="Details_BatchCard" v-for="batch in batchesWithImages" :key="batch._id"
-                @click="handleNaviagte(batch._id)">
-                <div class="details_BatchImage">
+                >
+                <div class="details_BatchImage" @click="handleNaviagte(batch._id)">
                     <img :src="batch.image" alt="Group" class="pattern_image" />
                 </div>
                 <div class="detailsNameCard">
-                    <h1 class="details_BatchName">Batch : {{ batch.batchName }}</h1>
+                    <h1 class="details_BatchName" @click="handleNaviagte(batch._id)">Batch : {{ batch.batchName }}</h1>
+                    <i class="pi pi-trash" style="font-size: 1.1rem; cursor: pointer;    margin: 0vw 0vw 0vw 2vw;" @click= "handleDeleteBatch(batch._id)"></i>
                 </div>
             </div>
         </div>
@@ -21,6 +22,7 @@
                 <button class="add_button" @click="showModal = true"> +</button>
             </div>
         </footer>
+        <Toast />
         <UserModal :isVisible="showModal" @close="showModal = false">
             <template v-slot:header>
                 <h1 class="modal_heading">Create Batch </h1>  
@@ -45,11 +47,13 @@
 import axios from 'axios';
 import UserModal from '../../../components/Modal.vue';
 import Image from '../../../assets/group8.jpg';
+import Toast from 'primevue/toast';
 
 export default {
     name: 'StudentsDetails',
     components: {
-        UserModal
+        UserModal,
+        Toast
     },
     data() {
         return {
@@ -99,6 +103,26 @@ export default {
         handleNaviagte(batchId) {
             console.log(batchId);
             this.$router.push(`/admin/batchStudentDetails/${batchId}`);
+        },
+        async handleDeleteBatch(batchId) {
+            try {
+                await axios.delete(`http://localhost:5000/batches/deleteBatch/${batchId}`);
+                this.fetchBatches();
+                this.$toast.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Batch Analytics deleted successfully',
+                    life: 3000
+                });
+            } catch (error) {
+                console.error(error);
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Failed to delete batch',
+                    life: 3000
+                });
+            }
         }
     },
     mounted() {
