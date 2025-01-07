@@ -31,8 +31,8 @@
         </template>
 
         <template v-slot:footer>
-            <button  @click = "downloadExcel" class="excelButton">Download as Excel</button>
-            <button @click="downloadPDF" class="pdfButton">Download as PDF</button>
+            <button  @click = "downloadExcel" class="excelButton">Download as Excel (without Proof)</button>
+            <button @click="downloadPDF" class="pdfButton">Download as PDF ( with Proof)</button>
         </template>
     </Modal>
 </template>
@@ -58,7 +58,7 @@ export default {
             fields: [
                 { label: 'Name', value: 'name' },
                 { label: 'Roll No', value: 'rollNo' },
-                { label: 'Gender', value: 'Gender' },
+                { label: 'Gender', value: 'gender' },
                 { label: 'Date of Birth', value: 'dob' },
                 { label: 'Mobile Number', value: 'mobile' },
                 { label: 'Degree', value: 'degree' },
@@ -83,6 +83,7 @@ export default {
         async fetchStudents() {
             try {
                 const id = this.$route.params.id;
+                
                 const response = await axios.get(`http://localhost:5000/batches/batchStudentDetails/${id}`);
                 this.students = response.data;
             } catch (error) {

@@ -34,8 +34,8 @@
             </template>
             
             <template v-slot:footer>
-                <button @click="downloadExcel" class="excelButton">Download as Excel</button>
-                <button @click="downloadPDF" class="pdfButton">Download as PDF</button>
+                <button @click="downloadExcel" class="excelButton">Download as Excel (without Proof)</button>
+                <button @click="downloadPDF" class="pdfButton">Download as PDF ( with Proof)</button>
             </template>
         </Modal>
     </div>

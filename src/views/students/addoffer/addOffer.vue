@@ -16,7 +16,7 @@
                     <label for="title">Name <span class="highligher"> * </span></label>
                 </div>
                 <div class="inputRightContainer">
-                    <input type="text" id="title" v-model="form.name" placeholder="Name">
+                    <input type="text" id="title" v-model="form.name" placeholder="Name" disabled>
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
                     <label for="title">Register Number <span class="highligher"> * </span></label>
                 </div>
                 <div class="inputRightContainer">
-                    <input type="text" id="title" v-model="form.registerNumber" placeholder="Roll Number">
+                    <input type="text" id="title" v-model="form.registerNumber" placeholder="Roll Number" disabled>
                 </div>
             </div>
 
@@ -82,31 +82,31 @@
                 </div>
                 <div class="inputRightContainer">
                     <select id="branch" v-model="form.selectedBranch" class="selectOption">
-                        <option value="Biomedical Engineering">B.E. - Biomedical Engineering</option>
-                        <option value="Biotechnology">B.Tech. - Biotechnology</option>
-                        <option value="Electronics and Instrumentation Engineering">B.E. - Electronics And Instrumentation
+                        <option value="B.E. - Biomedical Engineering">B.E. - Biomedical Engineering</option>
+                        <option value="B.E. - Electronics and Instrumentation Engineering">B.E. - Electronics And Instrumentation
                             Engineering</option>
-                        <option value="Electronics and Communication Engineering">B.E. - Electronics And Communication
+                        <option value="B.E. - Electronics and Communication Engineering">B.E. - Electronics And Communication
                             Engineering</option>
-                        <option value="Electrical and Electronics Engineering">B.E. - Electrical And Electronics Engineering
+                        <option value="B.E. - Electrical and Electronics Engineering">B.E. - Electrical And Electronics Engineering
                         </option>
-                        <option value="Computer Science Engineering">B.E. - Computer Science And Engineering</option>
-                        <option value="Computer Science and Design">B.E. - Computer Science And Design</option>
-                        <option value="Civil Engineering">B.E. - Civil Engineering</option>
-                        <option value="Information Science Engineering">B.E. - Information Science And Engineering
+                        <option value="B.E. - Computer Science Engineering">B.E. - Computer Science And Engineering</option>
+                        <option value="B.E. - Computer Science and Design">B.E. - Computer Science And Design</option>
+                        <option value="B.E. - Civil Engineering">B.E. - Civil Engineering</option>
+                        <option value="B.E. - Information Science Engineering">B.E. - Information Science And Engineering
                         </option>
-                        <option value="Mechanical Engineering">B.E. - Mechanical Engineering</option>
-                        <option value="Mechatronics Engineering">B.E. - Mechatronics Engineering</option>
-                        <option value="Agricultural Engineering">B.Tech. - Agricultural Engineering</option>
-                        <option value="Aritificial Intelligence and Data Science">B.Tech. - Artificial Intelligence And Data Science</option>
-                        <option value="Artificial Intelligence and  Machine Learning">B.Tech. - Artificial Intelligence And Machine Learning
+                        <option value="B.E. - Mechanical Engineering">B.E. - Mechanical Engineering</option>
+                        <option value="B.E. - Mechatronics Engineering">B.E. - Mechatronics Engineering</option>
+                        <option value="B.Tech. - Agricultural Engineering">B.Tech. - Agricultural Engineering</option>
+                        <option value="B.Tech. - Aritificial Intelligence and Data Science">B.Tech. - Artificial Intelligence And Data Science</option>
+                        <option value="B.Tech. - Artificial Intelligence and  Machine Learning">B.Tech. - Artificial Intelligence And Machine Learning
                         </option>
-                        <option value="Computer Science Business System">B.Tech. - Computer Science And Business System
+                        <option value="B.Tech. - Computer Science Business System">B.Tech. - Computer Science And Business System
                         </option>
-                        <option value="Computer Technology">B.Tech. - Computer Technology</option>
-                        <option value="Fashion Technology">B.Tech. - Fashion Technology</option>
-                        <option value="Food Technology">B.Tech. - Food Technology</option>
-                        <option value="Information Technology">B.Tech. - Information Technology</option>
+                        <option value="B.Tech. - Computer Technology">B.Tech. - Computer Technology</option>
+                        <option value="B.Tech. - Fashion Technology">B.Tech. - Fashion Technology</option>
+                        <option value="B.Tech. - Food Technology">B.Tech. - Food Technology</option>
+                        <option value="B.Tech. - Information Technology">B.Tech. - Information Technology</option>
+                        <option value="B.Tech. - Biotechnology">B.Tech. - Biotechnology</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -116,7 +116,7 @@
                     <label for="title">Batch<span class="highligher"> * </span></label>
                 </div>
                 <div class="inputRightContainer">
-                    <input type="text" id="title" v-model="form.batch" placeholder="Batch">
+                    <input type="text" id="title" v-model="form.batchName" placeholder="Batch" disabled>
                 </div>
             </div>
 
@@ -136,9 +136,9 @@
                 </div>
                 <div class="inputRightContainer">
                     <select id="companyCategory" v-model="form.selectedCompanyCategory" class="selectOption">
-                        <option value="product">Product Company</option>
-                        <option value="core">Core Company</option>
-                        <option value="service">Service Based Company</option>
+                        <option value="Product Company ">Product Company</option>
+                        <option value="Core Company ">Core Company</option>
+                        <option value="Service Based Company">Service Based Company</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -152,7 +152,7 @@
                 <div class="inputRightContainer">
                     <select id="placementOrganizer" v-model="form.organizedBy" class="selectOption">
                         <option value="Training and Placement">TAP (Department of Training and Placement)</option>
-                        <option value="own">Own</option>
+                        <option value="Own">Own</option>
                     </select>
                 </div>
             </div>
@@ -336,7 +336,8 @@ export default {
                 registerNumber: '',
                 dob: '',
                 mobileNumber: '',
-                batch: '',
+                batchName: '',
+                batch : '',
                 selectedGender: '',
                 selectedDegree: '',
                 selectedBranch: '',
@@ -352,6 +353,19 @@ export default {
         };
     },
        methods: {
+        async fetchUserData() {
+            try {
+                const userId = localStorage.getItem('userId');
+                const response = await axios.get(`http://localhost:5000/auth/user/${userId}`);
+                const userData = response.data;
+                this.form.name = userData.name;
+                this.form.registerNumber = userData.registerNumber;
+                this.form.batchName = userData.batchName;
+                this.form.batch = userData.batch;
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+            },
         triggerFileInput(refName) {
             this.$nextTick(() => {
                 const fileInput = this.$refs[refName];
@@ -385,6 +399,7 @@ export default {
             formData.append('mobileNumber', this.form.mobileNumber);
             formData.append('degree', this.form.selectedDegree);
             formData.append('branch', this.form.selectedBranch);
+            formData.append('batchName', this.form.batchName);
             formData.append('batch', this.form.batch);
             formData.append('companyName', this.form.companyName);
             formData.append('companyCategory', this.form.selectedCompanyCategory);
@@ -434,6 +449,9 @@ export default {
                 console.error(error);
             }
         }
+    },
+    mounted() {
+        this.fetchUserData();
     }
 }
 </script>

@@ -32,7 +32,7 @@
                     <h2 class="offerDetailsHeading">Gender<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent">{{ offer.Gender }}</h2>
+                    <h2 class="offerDetailsContent">{{ offer.gender }}</h2>
                 </div>
             </div>
             <div class="offerDetails">
@@ -201,7 +201,7 @@ export default {
             offer: {
                 name: '',
                 rollNo: '',
-                Gender: '',
+                gender: '',
                 dob: '',
                 mobile: '',
                 degree: '',

@@ -39,6 +39,12 @@
             <label for="confirmPassword">Confirm Password</label>
             <input class="editInput" v-model="form.confirmPassword" type="password" id="confirmPassword" placeholder="Confirm Password" required />
           </div>
+          <div class="form-group" v-if="form.role === 'student'">
+            <label for="batch">Batch</label>
+            <select class="inputSelection" id="batch" v-model="selectedBatch" required>
+              <option v-for="batch in batches" :key="batch._id" :value="batch._id">{{ batch.batchName }}</option>
+            </select>
+          </div>
         </template>
         <template v-slot:footer>
           <div class="buttonContainer">
@@ -77,6 +83,8 @@ export default {
         password: "",
         confirmPassword: "",
       },
+      batches: [],
+      selectedBatch: null
     };
   },
   methods: {
@@ -136,14 +144,25 @@ export default {
 
       if (isValid) {
         try {
-           await axios.post('http://localhost:5000/auth/register', {
+
+          await axios.post('http://localhost:5000/auth/register', {
             name: this.form.name,
             registerNumber: this.form.registerNumber,
             email: email,
             role: this.form.role,
             password: password,
-            confirmPassword: confirmPassword
+            confirmPassword: confirmPassword,
+            batch: this.selectedBatch
           });
+
+          this.form = {
+            name: "",
+            registerNumber: "",
+            email: "",
+            role: "student",
+            password: "",
+            confirmPassword: "",
+          }; 
           this.showToast('success', 'Success', 'User added successfully');
           this.showModal = false;
         } catch (error) {
@@ -152,9 +171,24 @@ export default {
         }
       }
     },
+
+    async availableBatches() {
+      try {
+        const response = await axios.get('http://localhost:5000/batches/getBatch', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        console.log('Fetched Batches:', response.data);
+        this.batches = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
   mounted() {
     this.$toast = this.$refs.toast;
+    this.availableBatches();
   },
 };
 </script>

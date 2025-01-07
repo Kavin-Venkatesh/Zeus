@@ -50,7 +50,7 @@
                     <h2 class="offerDetailsHeading">Gender<span style="color: red;">*</span></h2>
                 </div>
                 <div class="offerRightContainer">
-                    <h2 class="offerDetailsContent"> {{ offerDetails.Gender }}</h2>
+                    <h2 class="offerDetailsContent"> {{ offerDetails.gender }}</h2>
                 </div>
             </div>
             <div class=" offerDetails">
