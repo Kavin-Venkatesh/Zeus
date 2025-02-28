@@ -7,7 +7,12 @@
       <form @submit.prevent="submitForm">
         <div class="form_fields">
           <input class="form_fieldsinput" type="text" v-model="email" placeholder="Email" required />
-          <input class="form_fieldsinput" type="password" v-model="password" placeholder="Password" required />
+          <div class="password_container">
+            <input class="form_fieldsinput" :type="passwordFieldType" v-model="password" placeholder="Password" required />
+            <button type="button" class="togglePassword" @click="togglePasswordVisibility">
+                <i :class="passwordFieldType === 'password' ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+            </button>
+          </div>
           <button class="loginButton" type="submit">Login</button>
           <a class="forgotPassword" href="#">Forgot Password?</a>
         </div>
@@ -32,9 +37,13 @@ export default {
       email: '',
       password: '',
       Logo: Logo,
+      passwordFieldType: 'password',
     };
   },
   methods: {
+    togglePasswordVisibility() {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    },
     async submitForm() {
       try {
         const response = await axios.post('http://localhost:5000/auth/login', {

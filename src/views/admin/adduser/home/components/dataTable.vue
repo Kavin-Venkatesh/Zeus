@@ -17,7 +17,7 @@
                 <td colspan="10" class="no-data">No data found.</td>
             </tr>
           
-            <tr class="table-ContentConatiner" v-for="student in displayStudents" :key="student.id">
+            <tr class="table-ContentConatiner" v-for="student in displayStudents" :key="student.id" @click= "showStudentDetails(student.id)">
                 <td><input class="selectionCheckBox" type="checkbox" v-model="student.selected" @change="updateSelectedStudents" /></td>
                 <td v-if="!student.isEditing">{{ student.name }}</td>
                 <td v-else><input v-model="student.name" class="editInput" /></td>
@@ -49,23 +49,83 @@
             </button>
         </div>
         <Toast ref="toast" position="top-right" :life="3000"></Toast>
+        <Modal :isVisible="showModal" @close="showModal = false">
+            <template v-slot:header v-if="selectedStudent">
+                <h2>{{ selectedStudent.name}} - {{ selectedStudent.registerNumber }} DETAILS </h2>
+            </template>
+            <template v-slot:body>
+                <div v-if="selectedStudent">
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>Name :</strong></p></div>
+                        <div class="rightModalContainer"><p class="modalDetails">{{ selectedStudent.name }} </p></div>
+                    </div>
+
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>Roll Number (or) Staff ID:</strong></p></div>
+                        <div class="rightModalContainer"><p class="modalDetails">{{ selectedStudent.registerNumber }} </p></div>
+                    </div>
+
+                    <div class="modalDetailsContainer" v-if="selectedStudent.role === 'student'"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>Batch :</strong></p></div>
+                        <div class="rightModalContainer"><p class="modalDetails">{{ selectedStudent.batchName }} </p></div>
+                    </div>
+
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>Email ID:</strong></p></div>
+                        <div class="rightModalContainer"><p class="modalDetails">{{ selectedStudent.email }} </p></div>
+                    </div>
+
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>New Password :</strong></p></div>
+                        <div class="rightModalContainer">
+                            <input :type="passwordFieldType" id="newPassword" class="changePassword" v-model="newPassword" @keyup.enter="changePassword" />
+                            <button type="button" class="togglechangePassword" @click="togglePasswordVisibility">
+                                <i :class="passwordFieldType === 'password' ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"></div>
+                        <div class="rightModalContainer">  
+                            <button class="modal-contentbutton" @click="changePassword">Change Password</button>
+                        </div>
+                    </div>
+                    
+                    <div class="modalDetailsContainer"> 
+                        <div class="leftModalContainer"><p class="modalDetails"><strong>Role :</strong></p></div>
+                        <div class="rightModalContainer"><p class="modalDetails">{{ selectedStudent.role }} </p></div>
+                    </div>
+
+                    </div>
+                <div v-else>
+                    <p>Loading...</p>
+                </div>
+            </template>
+        </Modal>
     </div>
 </template>
 <script>
 import axios from 'axios';
+import Modal from '../../../../../components/Modal.vue'; 
 import Toast from 'primevue/toast';
 export default {
     name: "MyDataTable",
     components: {
-        Toast
+        Toast,
+        Modal
     },
     data() {
         return {
+            showModal : false,
             search: '',
             students: [],
             currentPage: 1,
             itemsPerPage: 8,
-            selectedStudents: []
+            selectedStudents: [],
+            selectedStudent: null,
+            newPassword: '',
+            passwordFieldType: 'password' 
         };
     },
     computed: {
@@ -100,6 +160,7 @@ export default {
                     isEditing: false,
                     selected: false
                 }));
+
             } catch (error) {
                 console.error('Error fetching students:', error);
                 this.$toast.add({
@@ -108,6 +169,24 @@ export default {
                     detail: 'An error occurred while fetching students. Please try again later.',
                     life: 3000
                 })
+            }
+        },
+
+        showStudentDetails(studentId){
+            this.individualStudentDetails(studentId);
+            this.showModal = true;
+        },
+
+        async individualStudentDetails(studentId){
+            try{
+                console.log(studentId);
+                const response = await axios.get(`http://localhost:5000/auth/individualDetail/${studentId}`);
+                this.selectedStudent = response.data;
+                console.log(this.selectedStudent);
+            }
+            catch(error){
+                console.log(error);
+
             }
         },
         nextPage() {
@@ -120,14 +199,53 @@ export default {
                 this.currentPage--;
             }
         },
+        async changePassword() {
+            if (!this.newPassword) {
+                this.$toast.add({
+                    severity: 'warn',
+                    summary: 'Warning',
+                    detail: 'Please enter a new password.',
+                    life: 3000
+                });
+                return;
+            }
+            console.log(this.selectedStudent._id);
+            console.log(this.newPassword);
+            try {
+                await axios.put(`http://localhost:5000/auth/changePassword`, {
+                    studentId: this.selectedStudent._id,
+                    newPassword: this.newPassword
+                });
+
+                this.$toast.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Password changed successfully.',
+                    life: 3000
+                });
+
+                this.newPassword = '';
+            } catch (error) {
+                console.error('Error changing password:', error);
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'An error occurred while changing the password. Please try again later.',
+                    life: 3000
+                });
+            }
+        },
+        togglePasswordVisibility() {
+            this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+        },
         async editStudent(student) {
             if (student.isEditing) {
                 try{
                     await axios.put('http://localhost:5000/auth/updateusers', 
                         {
-                            id: student.id,
+                            _id: student.id,
                             name: student.name,
-                            rollNo: student.rollNo,
+                            registerNumber: student.rollNo,
                             email: student.email,
                             role: student.role
                         });
@@ -383,5 +501,116 @@ export default {
     font-size: larger;
     color: #D4D4D7;
 }
+.modalDetailsContainer{
+    display: flex;
+    width: 90%;
+    height: 5vh;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1rem;
 
+}
+.modalDetails{
+    margin-right: 0.5rem;
+    font-size: larger;
+    color: #D4D4D7;
+}
+
+.leftModalContainer{
+    display: flex;
+    justify-content: flex-start;
+    width: 40%;
+    height: 5vh;
+    margin-top: 1rem;
+    align-items: center;
+}
+.rightModalContainer{
+    display: flex;
+    justify-content: flex-start;
+    width: 40%;
+    height: 5vh;
+    margin-top: 1rem;
+    align-items: center;
+}
+.changePassword {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #18191A;
+    color: #D4D4D7;
+    transition: border-color 0.3s;
+}
+
+.changePassword:focus {
+    border-color: #8540ca;
+    outline: none;
+}
+
+.modal-contentbutton {
+    margin-top: 1rem;
+    padding: 0.8rem 1.2rem;
+    background-color: #8540ca;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content button:hover {
+    background-color: #6a6a6a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content button:active {
+    background-color: #4a4a4a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.changePassword {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #4a4a4a;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #18191A;
+    color: #D4D4D7;
+    transition: border-color 0.3s;
+}
+
+.changePassword:focus {
+    border-color: #8540ca;
+    outline: none;
+}
+
+.togglechangePassword {
+    position: absolute;
+    right: 9.5rem;
+    bottom: 9rem;
+    background: none;
+    border: none;
+    color: #D4D4D7;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+    border-radius: 5px;
+    padding: 0.6rem;
+    background-color: #8540ca;
+}
+
+.togglechangePassword:focus {
+    border-color:#4489DC ;
+}
 </style>

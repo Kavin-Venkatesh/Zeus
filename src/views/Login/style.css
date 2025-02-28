@@ -196,7 +196,7 @@ body{
 }
 
 .forgotPassword{
-    margin-top: 2rem;
+        margin-top: 2rem;
         color: var(--text);
         text-decoration: none;
         font-size: 1rem;
@@ -208,4 +208,48 @@ body{
         @media screen and (max-width : 512px){
             margin-top: 1rem;
         }
+}
+
+.togglePassword {
+    position: absolute;
+    right: 0.1rem;
+    top: 1.2rem;
+    background: none;
+    border: none;
+    color: #D4D4D7;
+    background-color: var(--secondary);
+    cursor: pointer;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 0.6rem;
+    border-radius: 5px;
+}
+
+.togglePassword:focus {
+    outline: none;
+}
+
+.password_container{
+    position: relative;
+    width: 16vw;
+    margin-top: 0.9rem;
+
+    @media screen and (min-width : 1440px){
+        width: 20vw;
+    }
+
+    @media screen and (max-width : 1200px){
+        width: 30vw;
+    }
+
+    @media screen and (max-width : 768px){
+        width: 40vw;
+    }
+
+    @media screen and (max-width : 512px){
+        width: 70vw;
+    }
 }

@@ -72,10 +72,10 @@ export default {
                 { label: 'Stipend', value: 'stipend' },
                 { label: 'Company CTC', value: 'companyCtc' },
                 { label: 'Placed Date', value: 'placedDate' },
-                { label: 'Mail Screenshots', value: 'mailScreenshots' },
-                { label: 'Letter of Intent', value: 'letterOfIntent' },
-                {label : 'offerLetter', value: 'offerLetter'},
-                {label : 'Internship Letter', value: 'internshipLetter'},
+                // { label: 'Mail Screenshots', value: 'mailScreenshots' },
+                // { label: 'Letter of Intent', value: 'letterOfIntent' },
+                // {label : 'offerLetter', value: 'offerLetter'},
+                // {label : 'Internship Letter', value: 'internshipLetter'},
             ]
         };
     },

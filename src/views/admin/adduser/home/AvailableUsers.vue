@@ -33,11 +33,17 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input class="editInput" v-model="form.password" type="password" id="password" placeholder="Password" required />
+            <div class="password-container">
+          <input class="editInput" :type="passwordFieldType" v-model="form.password" placeholder="Password" required />
+          <button type="button" class="togglePasswordButton" @click="togglePassVisibility">
+            <i :class="passwordFieldType === 'password' ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+          </button>
+        </div>
+            
           </div>
           <div class="form-group">
             <label for="confirmPassword">Confirm Password</label>
-            <input class="editInput" v-model="form.confirmPassword" type="password" id="confirmPassword" placeholder="Confirm Password" required />
+            <input class="editInput" v-model="form.confirmPassword" :type="passwordFieldType" id="confirmPassword" placeholder="Confirm Password" required />
           </div>
           <div class="form-group" v-if="form.role === 'student'">
             <label for="batch">Batch</label>
@@ -83,11 +89,15 @@ export default {
         password: "",
         confirmPassword: "",
       },
+      passwordFieldType: "password",
       batches: [],
       selectedBatch: null
     };
   },
   methods: {
+    togglePassVisibility() {
+      this.passwordFieldType = this.passwordFieldType === "password" ? "text" : "password";
+    },
     validateEmail(email) {
       const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return re.test(email);
@@ -179,7 +189,6 @@ export default {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
-        console.log('Fetched Batches:', response.data);
         this.batches = response.data;
       } catch (error) {
         console.error(error);
