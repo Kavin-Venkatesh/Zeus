@@ -43,7 +43,7 @@ export default {
     methods: {
         async getBatches() {
             try {
-                const response = await axios.get('http://localhost:5000/analytics/getBatch');
+                const response = await axios.get('https://napoleon-p829.onrender.com/analytics/getBatch');
                 this.Batches = response.data;
                 console.log(this.Batches);
             } catch (error) {

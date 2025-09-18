@@ -81,7 +81,7 @@ export default {
     methods: {
         async fetchBatches() {
             try {
-                const response = await axios.get('http://localhost:5000/batches/getBatch'); // Replace with your actual endpoint
+                const response = await axios.get('https://napoleon-p829.onrender.com/batches/getBatch'); // Replace with your actual endpoint
                 this.Batches = response.data;
             } catch (error) {
                 console.error('Error fetching batches:', error);
@@ -90,7 +90,7 @@ export default {
         async addBatch() {
             try {
                 console.log('Adding batch:', this.batchName);
-                await axios.post('http://localhost:5000/batches/createBatch', {
+                await axios.post('https://napoleon-p829.onrender.com/batches/createBatch', {
                     batchName: this.batchName
                 });
                 this.fetchBatches();
@@ -106,7 +106,7 @@ export default {
         },
         async handleDeleteBatch(batchId) {
             try {
-                await axios.delete(`http://localhost:5000/batches/deleteBatch/${batchId}`);
+                await axios.delete(`https://napoleon-p829.onrender.com/batches/deleteBatch/${batchId}`);
                 this.fetchBatches();
                 this.$toast.add({
                     severity: 'success',

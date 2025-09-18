@@ -153,7 +153,7 @@ export default {
     methods: {
         async fetchStudents() {
             try {
-                const response = await axios.get('http://localhost:5000/auth/users'); // Replace with your actual endpoint
+                const response = await axios.get('https://napoleon-p829.onrender.com/auth/users'); // Replace with your actual endpoint
 
                 this.students = response.data.map(student => ({
                     ...student,
@@ -180,7 +180,7 @@ export default {
         async individualStudentDetails(studentId){
             try{
                 console.log(studentId);
-                const response = await axios.get(`http://localhost:5000/auth/individualDetail/${studentId}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/auth/individualDetail/${studentId}`);
                 this.selectedStudent = response.data;
                 console.log(this.selectedStudent);
             }
@@ -212,7 +212,7 @@ export default {
             console.log(this.selectedStudent._id);
             console.log(this.newPassword);
             try {
-                await axios.put(`http://localhost:5000/auth/changePassword`, {
+                await axios.put(`https://napoleon-p829.onrender.com/auth/changePassword`, {
                     studentId: this.selectedStudent._id,
                     newPassword: this.newPassword
                 });
@@ -241,7 +241,7 @@ export default {
         async editStudent(student) {
             if (student.isEditing) {
                 try{
-                    await axios.put('http://localhost:5000/auth/updateusers', 
+                    await axios.put('https://napoleon-p829.onrender.com/auth/updateusers', 
                         {
                             _id: student.id,
                             name: student.name,
@@ -286,7 +286,7 @@ export default {
             const selectedIds = this.selectedStudents.map(student => student.id);
             console.log(selectedIds); 
             try {
-                await axios.delete('http://localhost:5000/auth/deleteusers', 
+                await axios.delete('https://napoleon-p829.onrender.com/auth/deleteusers', 
                 { 
                     headers: {
                         'Content-Type': 'application/json',

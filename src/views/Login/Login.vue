@@ -46,7 +46,7 @@ export default {
     },
     async submitForm() {
       try {
-        const response = await axios.post('http://localhost:5000/auth/login', {
+        const response = await axios.post('https://napoleon-p829.onrender.com/auth/login', {
           email: this.email,
           password: this.password,
         });
@@ -78,15 +78,12 @@ export default {
         // Navigate based on user role
         switch (user.role) {
           case 'admin':
-            console.log('Redirecting to /admin/home');
             this.$router.push('/admin/home');
             break;
           case 'student':
-            console.log('Redirecting to /student/home');
             this.$router.push('/student/home');
             break;
           case 'organiser':
-            console.log('Redirecting to /organisers/home');
             this.$router.push('/organisers/home');
             break;
           default:

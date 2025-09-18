@@ -15,17 +15,17 @@
                 <th>Salary Package</th>
                 <th>Status</th>
             </thead>
-            <tr v-if="displayedCustomers.length === 0">
+            <tr v-if="displayedStudents.length === 0">
                     <td colspan="10" class="no-data">No data found.</td>
             </tr>
 
-            <tr  class= " table-ContentConatiner" v-for="customer in displayedCustomers" :key="customer.id" @click = gotoDetailsPage(customer.id)>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.rollNumber }}</td>
-                <td>{{ customer.branch }}</td>
-                <td>{{ customer.companyName }}</td>
-                <td>{{ customer.salaryPackage }}</td>
-                <td class= "PendingStatus">{{ customer.status }}</td>
+            <tr  class= " table-ContentConatiner" v-for="student in displayedStudents" :key="student.id" @click = gotoDetailsPage(student.id)>
+                <td>{{ student.name }}</td>
+                <td>{{ student.rollNumber }}</td>
+                <td>{{ student.branch }}</td>
+                <td>{{ student.companyName }}</td>
+                <td>{{ student.salaryPackage }}</td>
+                <td class= "PendingStatus">{{ student.status }}</td>
             </tr>
         </table>   
         <div class="ButtonContainer"> 
@@ -49,20 +49,20 @@ export default {
     data() {
         return {
             search: '',
-            customers: [],
+            Students: [],
             currentPage: 1,
             itemsPerPage: 8
         };
     },
     computed: {
-        displayedCustomers() {
-            let customers = this.customers;
+        displayedStudents() {
+            let Students = this.Students;
 
             if (this.search) {
                 const searchLower = this.search.toLowerCase();
 
-                customers = customers.filter(customer =>
-                    Object.values(customer).some(value =>
+                Students = Students.filter(student =>
+                    Object.values(student).some(value =>
                         String(value).toLowerCase().includes(searchLower)
                     )
                 );
@@ -71,19 +71,19 @@ export default {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;
 
-            return customers.slice(start, end);
+            return Students.slice(start, end);
         },
         maxPage() {
-            return Math.ceil(this.customers.length / this.itemsPerPage);
+            return Math.ceil(this.Students.length / this.itemsPerPage);
         }
     },
     methods: {
-        async fetchCustomers() {
+        async fetchStudents() {
             try {
-                const response = await axios.get('http://localhost:5000/offer/pendingOffers');
-                this.customers = response.data;
+                const response = await axios.get('https://napoleon-p829.onrender.com/offer/pendingOffers');
+                this.Students = response.data;
             } catch (error) {
-                console.error('Error fetching customers:', error);
+                console.error('Error fetching Students:', error);
             }
         },
         nextPage() {
@@ -96,16 +96,13 @@ export default {
                 this.currentPage--;
             }
         },
-        gotoDetailsPage(customerId) {
-            this.$router.push(`/pendingdetailsPage/${customerId}`);
+        gotoDetailsPage(studentId) {
+            this.$router.push(`/pendingdetailsPage/${studentId}`);
         }
 
-        // gotoDetailsPage() {
-        //     this.$router.push(`/pendingdetailsPage`);
-        // }
     },
     mounted() {
-        this.fetchCustomers();
+        this.fetchStudents();
     }
 };
 </script>

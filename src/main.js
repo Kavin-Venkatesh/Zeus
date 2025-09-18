@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp , ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import PrimeVue from 'primevue/config';
 import App from './App.vue';
@@ -11,7 +11,6 @@ import AnalyticsPage from './views/admin/dashboard/components/AnalyticsPage.vue'
 import AddBatch from './views/admin/dashboard/addBatch/addBatch.vue';
 import BatchStudentDetails from './views/admin/studentDetails/batchStudentDetails/batchStudentDetails.vue';
 import IndividualDetailsPage from './views/admin/studentDetails/detailsPage.vue';
-import AddSingleUser from './views/admin/adduser/addsingleUser/addSingleUser.vue';
 import PendingdetailsPage from './views/admin/newRequests/pendingDetailsPage.vue';
 import StudentHome from './views/students/index.vue';
 import AddOffer from './views/students/addoffer/addOffer.vue';
@@ -19,6 +18,7 @@ import OrganisersPage from './views/organisers/index.vue';
 import OrganisersAnalytics from './views/organisers/dashboard/Analytics';
 import OrganiserBatchDetails from './views/organisers/batchDetails/batchDetails.vue';
 import OrganisersIndividualDetailsPage from './views/organisers/detailspage/detailsPage.vue';
+
 
 import 'primevue/resources/themes/saga-blue/theme.css'; // theme
 import 'primevue/resources/primevue.min.css'; // core css
@@ -53,11 +53,6 @@ const router = createRouter({
       path: '/detailsPage/:id',
       component: IndividualDetailsPage,
       meta: { requiresAuth: true, role: ['admin', 'organiser' , 'student'] },
-    },
-    {
-      path: '/admin/addSingleUser',
-      component: AddSingleUser,
-      meta: { requiresAuth: true, role: 'admin' },
     },
     {
       path: '/pendingdetailsPage/:id',
@@ -99,6 +94,7 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
+  isLoading.value = true;
   const isAuthenticated = getters.isAuthenticated();
   const userRole = getters.userRole();
 
@@ -120,7 +116,19 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+
+router.afterEach(() => {
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2500);
+});
+
+
+const isLoading = ref(false);
+
 const app = createApp(App);
+
+app.provide('isLoading', isLoading);
 app.use(router);
 app.use(PrimeVue);
 app.use(ToastService);

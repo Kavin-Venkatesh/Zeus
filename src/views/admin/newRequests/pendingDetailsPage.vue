@@ -279,7 +279,7 @@ export default {
         async fetchOfferDetails() {
             const offerId = this.$route.params.id;
             try {
-                const response = await axios.get(`http://localhost:5000/offer/pendingDetails/${offerId}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/offer/pendingDetails/${offerId}`);
                 this.mapOfferDetails(response.data);
             } catch (error) {
                 console.error('Error fetching offer details:', error);
@@ -296,16 +296,16 @@ export default {
             // Map available proofs
             data.availableProofs.forEach(proof => {
                 if (proof.type === 'mail confirmation') {
-                    this.MailImgSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.MailImgSrc = `https://napoleon-p829.onrender.com/${proof.filePath}`;
                     this.checkboxes.mailConfirmation = true;
                 } else if (proof.type === 'Internship letter') {
-                    this.IlPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.IlPdfSrc = `https://napoleon-p829.onrender.com/${proof.filePath}`;
                     this.checkboxes.internshipLetter = true;
                 } else if (proof.type === 'letter of intent') {
-                    this.LOTPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.LOTPdfSrc = `https://napoleon-p829.onrender.com/${proof.filePath}`;
                     this.checkboxes.letterOfIntent = true;
                 } else if (proof.type === 'offer letter') {
-                    this.OLPdfSrc = `http://localhost:5000/${proof.filePath}`;
+                    this.OLPdfSrc = `https://napoleon-p829.onrender.com/${proof.filePath}`;
                     this.checkboxes.OfferLetter = true;
                 }
             });
@@ -316,7 +316,7 @@ export default {
         async updateStatus(status, rejectedReason = '') {
             const offerId = this.$route.params.id;
             try {
-                const response = await axios.put(`http://localhost:5000/offer/updateStatus/${offerId}`, {
+                const response = await axios.put(`https://napoleon-p829.onrender.com/offer/updateStatus/${offerId}`, {
                     status,
                     rejectedReason
                 });

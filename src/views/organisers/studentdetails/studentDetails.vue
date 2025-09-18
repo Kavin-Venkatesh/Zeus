@@ -50,7 +50,7 @@ export default {
     methods: {
         async fetchBatches() {
             try {
-                const response = await axios.get('http://localhost:5000/batches/getBatch'); // Replace with your actual endpoint
+                const response = await axios.get('https://napoleon-p829.onrender.com/batches/getBatch'); // Replace with your actual endpoint
                 this.Batches = response.data;
                 console.log(this.Batches);
             } catch (error) {

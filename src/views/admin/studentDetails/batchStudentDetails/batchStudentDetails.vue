@@ -84,7 +84,7 @@ export default {
             try {
                 const id = this.$route.params.id;
                 
-                const response = await axios.get(`http://localhost:5000/batches/batchStudentDetails/${id}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/batches/batchStudentDetails/${id}`);
                 this.students = response.data;
             } catch (error) {
                 console.error('Error fetching students:', error);
@@ -102,7 +102,7 @@ export default {
         async downloadPDF() {
             try {
                 const id = this.$route.params.id;
-                const response = await axios.post(`http://localhost:5000/batches/download/pdf`, {
+                const response = await axios.post(`https://napoleon-p829.onrender.com/batches/download/pdf`, {
                     batchId: id,
                     selectedFields: this.selectedFields
                 }, {
@@ -128,7 +128,7 @@ export default {
         async downloadExcel() {
             try {
                 const id = this.$route.params.id;
-                const response = await axios.post(`http://localhost:5000/batches/download/excel`, {
+                const response = await axios.post(`https://napoleon-p829.onrender.com/batches/download/excel`, {
                     batchId: id,
                     selectedFields: this.selectedFields
                 }, {

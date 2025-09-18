@@ -226,7 +226,7 @@ export default {
         async fetchOfferDetails() {
             const offerId = this.$route.params.id;
             try {
-                const response = await axios.get(`http://localhost:5000/offer/detailsPage/${offerId}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/offer/detailsPage/${offerId}`);
                 this.mapOfferDetails(response.data);
             } catch (error) {
                 console.error('Error fetching offer details:', error);
@@ -241,7 +241,7 @@ export default {
             };
         },
         getFileUrl(filePath){
-            return `http://localhost:5000/${filePath}`;
+            return `https://napoleon-p829.onrender.com/${filePath}`;
         },
         openFile(filePath) {
             const fileUrl = this.getFileUrl(filePath);
@@ -250,7 +250,7 @@ export default {
         async downloadPDF() {
         try {
             const offerId = this.$route.params.id;
-            const response = await axios.get(`http://localhost:5000/offer/downloadPDF/${offerId}`, {
+            const response = await axios.get(`https://napoleon-p829.onrender.com/offer/downloadPDF/${offerId}`, {
                 responseType: 'blob'
             });
 

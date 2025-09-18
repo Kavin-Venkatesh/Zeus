@@ -76,7 +76,7 @@ export default {
         async fetchOffers() {
             try {
                 const userId = localStorage.getItem('userId');
-                const response = await axios.get('http://localhost:5000/offer/getoffers', {
+                const response = await axios.get('https://napoleon-p829.onrender.com/offer/getoffers', {
                     params: {
                         userId: userId
                     }

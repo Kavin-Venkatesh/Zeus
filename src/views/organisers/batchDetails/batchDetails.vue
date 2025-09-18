@@ -76,10 +76,10 @@ export default {
                 { label: 'Stipend', value: 'stipend' },
                 { label: 'Company CTC', value: 'companyCtc' },
                 { label: 'Placed Date', value: 'placedDate' },
-                { label: 'Mail Screenshots', value: 'mailScreenshots' },
-                { label: 'Letter of Intent', value: 'letterOfIntent' },
-                { label: 'Offer Letter', value: 'offerLetter' },
-                { label: 'Internship Letter', value: 'internshipLetter' }
+                // { label: 'Mail Screenshots', value: 'mailScreenshots' },
+                // { label: 'Letter of Intent', value: 'letterOfIntent' },
+                // { label: 'Offer Letter', value: 'offerLetter' },
+                // { label: 'Internship Letter', value: 'internshipLetter' }
             ]
         };
     },
@@ -87,7 +87,7 @@ export default {
         async fetchStudents() {
             try {
                 const id = this.$route.params.id;
-                const response = await axios.get(`http://localhost:5000/batches/batchStudentDetails/${id}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/batches/batchStudentDetails/${id}`);
                 this.students = response.data;
             } catch (error) {
                 this.$toast.add({
@@ -104,7 +104,7 @@ export default {
         async downloadPDF() {
             try {
                 const id = this.$route.params.id;
-                const response = await axios.post(`http://localhost:5000/batches/download/pdf`, {
+                const response = await axios.post(`https://napoleon-p829.onrender.com/batches/download/pdf`, {
                     batchId: id,
                     selectedFields: this.selectedFields
                 }, {
@@ -129,7 +129,7 @@ export default {
         async downloadExcel() {
             try {
                 const id = this.$route.params.id;
-                const response = await axios.post(`http://localhost:5000/batches/download/excel`, {
+                const response = await axios.post(`https://napoleon-p829.onrender.com/batches/download/excel`, {
                     batchId: id,
                     selectedFields: this.selectedFields
                 }, {

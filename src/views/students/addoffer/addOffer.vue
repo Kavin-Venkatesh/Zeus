@@ -356,7 +356,7 @@ export default {
         async fetchUserData() {
             try {
                 const userId = localStorage.getItem('userId');
-                const response = await axios.get(`http://localhost:5000/auth/user/${userId}`);
+                const response = await axios.get(`https://napoleon-p829.onrender.com/auth/user/${userId}`);
                 const userData = response.data;
                 this.form.name = userData.name;
                 this.form.registerNumber = userData.registerNumber;
@@ -427,7 +427,7 @@ export default {
             }
     
             try {
-                await axios.post('http://localhost:5000/offer/addOffer', formData, {
+                await axios.post('https://napoleon-p829.onrender.com/offer/addOffer', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

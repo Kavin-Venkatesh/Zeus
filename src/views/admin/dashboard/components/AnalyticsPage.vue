@@ -113,7 +113,7 @@ export default {
     methods: {
         getBatchDetails(id) {
             console.log(id);
-            axios.get(`http://localhost:5000/analytics/getBatch/${id}`)
+            axios.get(`https://napoleon-p829.onrender.com/analytics/getBatch/${id}`)
                 .then(response => {
                     this.batchDetails = response.data;
                     this.chartData = this.setChartData();

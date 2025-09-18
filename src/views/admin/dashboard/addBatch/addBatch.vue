@@ -162,7 +162,7 @@ export default {
         async handleFormSubmit() {
             console.log(this.BatchDetails);
             try{
-                 await axios.post('http://localhost:5000/analytics/addBatch',this.BatchDetails)
+                 await axios.post('https://napoleon-p829.onrender.com/analytics/addBatch',this.BatchDetails)
             }
             catch(error){
                 console.log("An errored while adding the batch", error)

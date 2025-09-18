@@ -155,7 +155,7 @@ export default {
       if (isValid) {
         try {
 
-          await axios.post('http://localhost:5000/auth/register', {
+          await axios.post('https://napoleon-p829.onrender.com/auth/register', {
             name: this.form.name,
             registerNumber: this.form.registerNumber,
             email: email,
@@ -184,7 +184,7 @@ export default {
 
     async availableBatches() {
       try {
-        const response = await axios.get('http://localhost:5000/batches/getBatch', {
+        const response = await axios.get('https://napoleon-p829.onrender.com/batches/getBatch', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }

@@ -63,7 +63,7 @@ describe('LoginForm.vue', () => {
     await form.trigger('submit.prevent');
     await flushPromises();
 
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/auth/login', {
+    expect(axios.post).toHaveBeenCalledWith('https://napoleon-p829.onrender.com/auth/login', {
       email: 'test@example.com',
       password: 'password123',
     });
@@ -94,7 +94,7 @@ describe('LoginForm.vue', () => {
     await form.trigger('submit.prevent');
     await flushPromises();
 
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:5000/auth/login', {
+    expect(axios.post).toHaveBeenCalledWith('https://napoleon-p829.onrender.com/auth/login', {
       email: 'test@example.com',
       password: 'wrongpassword',
     });

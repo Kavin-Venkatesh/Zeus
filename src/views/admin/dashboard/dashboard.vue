@@ -68,12 +68,12 @@ export default {
             this.$router.push('/admin/addBatch');
         },
         async getBatches(){
-            const response = await axios.get('http://localhost:5000/analytics/getBatch');
+            const response = await axios.get('https://napoleon-p829.onrender.com/analytics/getBatch');
             this.Batches = response.data;
         },
        async handleDeleteBatch(batchId) {
             try {
-                await axios.delete(`http://localhost:5000/analytics/deleteAnalytics/${batchId}`);
+                await axios.delete(`https://napoleon-p829.onrender.com/analytics/deleteAnalytics/${batchId}`);
                 this.getBatches();
 
                 this.$toast.add({
