@@ -22,7 +22,7 @@
 <script>
 import axios from 'axios';
 import Group1 from '../../../assets/group1.jpg';
-import '../studentdetails/studentDetails.css';
+
 
 export default {
     name: 'OrgraniserStudentsDetails',
@@ -68,5 +68,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../studentDetails/studentDetails.css';
+@import '../studentdetails/studentDetails.css';
 </style>
